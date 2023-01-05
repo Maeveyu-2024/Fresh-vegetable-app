@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2023-01-05 11:38:48
  */
 public interface AreaService {
-    ResponseResult<?> queryAreaList(String name);//查询area表数据
+    ResponseResult<?> queryAreaList(String name, Integer pageNo, Integer pageSize);//查询area表数据
     ResponseResult<?> addArea(Area area);//添加area表数据
     ResponseResult<?> updateArea(Area area);//修改area表数据
     ResponseResult<?> delArea(Long id);//逻辑删除area表数据
