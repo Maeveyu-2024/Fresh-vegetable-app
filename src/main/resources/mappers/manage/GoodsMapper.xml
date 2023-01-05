@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.woniu.dao.manage.GoodsDao">
+
+    <resultMap type="cn.woniu.entity.manage.Goods" id="GoodsMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="unitId" column="unit_id" jdbcType="VARCHAR"/>
+        <result property="no" column="no" jdbcType="VARCHAR"/>
+        <result property="attritionRate" column="attrition_rate" jdbcType="VARCHAR"/>
+        <result property="goodsTypeId" column="goods_type_id" jdbcType="VARCHAR"/>
+        <result property="unitWeight" column="unit_weight" jdbcType="INTEGER"/>
+        <result property="conver" column="conver" jdbcType="VARCHAR"/>
+        <result property="supplierId" column="supplier_id" jdbcType="VARCHAR"/>
+        <result property="pic" column="pic" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="salePrice" column="sale_price" jdbcType="NUMERIC"/>
+        <result property="stock" column="stock" jdbcType="VARCHAR"/>
+        <result property="stockUpperLimit" column="stock_upper_limit" jdbcType="INTEGER"/>
+        <result property="stockLowerLimit" column="stock_lower_limit" jdbcType="INTEGER"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  # 配置数据源信息
+  datasource:
+    # 配置数据源类型
+    type: com.zaxxer.hikari.HikariDataSource
+    # 配置连接数据库信息
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.2.26:3306/fresh_food?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: wutianlong
+  # 配置redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+#mybatisPlus相关配置
+mybatis-plus:
+  mapper-locations: classpath:mappers/*/*Mapper.xml
+  configuration:
+    # 配置MyBatis日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

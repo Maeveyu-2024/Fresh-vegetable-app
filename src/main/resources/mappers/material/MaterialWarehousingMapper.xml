@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.woniu.dao.material.MaterialWarehousingDao">
+
+    <resultMap type="cn.woniu.entity.material.MaterialWarehousing" id="MaterialWarehousingMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="shoppinglistId" column="shoppingList_id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="no" column="no" jdbcType="VARCHAR"/>
+        <result property="goodsId" column="goods_id" jdbcType="VARCHAR"/>
+        <result property="supplierId" column="supplier_id" jdbcType="VARCHAR"/>
+        <result property="employeeId" column="employee_id" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="num" column="num" jdbcType="VARCHAR"/>
+        <result property="purchPrice" column="purch_price" jdbcType="NUMERIC"/>
+        <result property="unitId" column="unit_id" jdbcType="VARCHAR"/>
+        <result property="time" column="time" jdbcType="TIMESTAMP"/>
+        <result property="warehouseId" column="warehouse_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+</mapper>
