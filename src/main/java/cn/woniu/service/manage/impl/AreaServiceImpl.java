@@ -27,8 +27,7 @@ public class AreaServiceImpl implements AreaService {
     @Autowired(required = false)
     private AreaDao areaDao;
 
-    @Autowired
-    private RedisRepository redisRepository;
+
 
     @Override
     public ResponseResult<?> queryAreaList(String name, Integer pageNo, Integer pageSize) {
