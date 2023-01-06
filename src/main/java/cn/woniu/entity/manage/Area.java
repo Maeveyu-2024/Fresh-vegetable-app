@@ -1,11 +1,11 @@
 package cn.woniu.entity.manage;
 
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import java.util.List;
  * @since 2023-01-05 11:38:48
  */
 @Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Area {
