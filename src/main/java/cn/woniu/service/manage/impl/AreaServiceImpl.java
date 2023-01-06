@@ -67,5 +67,11 @@ public class AreaServiceImpl implements AreaService {
         areaDao.batchDelArea(ids);
         return new ResponseResult<>(200,"批量删除区域");
     }
+
+    @Override
+    public ResponseResult<?> queryAllAreaList() {
+        List<Area> areas = areaDao.queryAllAreaList();
+        return new ResponseResult<>(200,"查询区域",areas);
+    }
 }
 

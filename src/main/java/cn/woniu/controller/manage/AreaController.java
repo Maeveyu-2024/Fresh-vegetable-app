@@ -70,4 +70,11 @@ public class AreaController {
         List<Integer> ids = area.getIds();
         return areaService.batchDelArea(ids);
     }
+    /**
+     *查询全部地区
+     */
+    @RequestMapping("/list")
+    ResponseResult<?> queryAllAreaList(){
+        return areaService.queryAllAreaList();
+    }
 }
