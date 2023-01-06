@@ -11,4 +11,25 @@
         <result property="employeeId" column="employee_id" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="queryWarehouseList" resultType="cn.woniu.entity.manage.Warehouse">
+        select w.id,w.name,w.status,w.address,w.update_time ,e.name as employee_name
+        from warehouse w
+        left join employee e
+        on w.employee_id=e.id
+        <where>
+            <if test="name != null and name != '' ">
+                and w.name like concat("%",#{name},"%")
+            </if>
+            <if test="address != null and address != '' ">
+                and w.address like concat('%',#{address},'%')
+            </if>
+            <if test="employeeName != null and employeeName != '' ">
+                and e.name = #{employeeName}
+            </if>
+            <if test="status != null and status > 0  ">
+                and w.status = #{status}
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -35,5 +35,41 @@
         WHERE
             e.username = #{username}
     </select>
+    <select id="queryEmployeeList" resultType="cn.woniu.entity.manage.Employee">
+        SELECT
+	        id,
+	        name,
+	        workage,
+	        age,
+	        gender,
+	        salary,
+	        department_id,
+	        status,
+	        birthday
+        FROM
+	        employee
+	    <where>
+            <if test="name != null and name != ''">
+                and name like concat("%",#{name},"%")
+            </if>
+            <if test="departmentId != null and departmentId != ''">
+                and department_id = #{departmentId}
+            </if>
+            <if test="workage != null and workage != ''">
+                and workage &gt;= #{workage}
+            </if>
+            <foreach collection="selectInductionTime" item="InductionTime" index="index">
+                <if test="index == 0 and InductionTime != null">
+                    and induction_time &gt;= #{InductionTime}
+                </if>
+                <if test="index == 1 and InductionTime != null">
+                    and induction_time &lt;= #{InductionTime}
+                </if>
+            </foreach>
+        </where>
+    </select>
 
+    <update id="updateEmployeeStatusById">
+        update employee set status = #{status} where id = #{id}
+    </update>
 </mapper>

@@ -1,6 +1,7 @@
 package cn.woniu.entity.manage;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,13 @@ public class Warehouse {
     private LocalDate updateTime;
     //员工id
     private String employeeId;
+    //员工姓名
+    @TableField(exist = false)
+    private String employeeName;
+    @TableField(exist = false)
+    private Integer pageNo;
+    @TableField(exist = false)
+    private Integer pageSize;
 
 
 }
