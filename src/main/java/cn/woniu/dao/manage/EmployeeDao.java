@@ -4,6 +4,9 @@ package cn.woniu.dao.manage;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.manage.Employee;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * (Employee)表数据库访问层
  *
@@ -19,4 +22,13 @@ public interface EmployeeDao extends BaseMapper<Employee> {
      * @return 返回用户信息及权限
      */
     Employee queryEmployeeByUsername(String username);
+
+    /**
+     * 条件查询用户列表
+     * @param employee
+     * @return
+     */
+    List<Employee> queryEmployeeList(Employee employee);
+
+    int updateEmployeeStatusById(Integer id , Integer status);
 }

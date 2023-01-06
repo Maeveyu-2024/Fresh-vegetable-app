@@ -53,6 +53,12 @@ public class Employee {
     //权限
     @TableField(exist = false)
     private List<String> auths;
+    //搜索用
+    @TableField(exist = false)
+    private LocalDate[] selectInductionTime;
+    //列表展示用
+    @TableField(exist = false)
+    private String departmentName;
 
 
 }
