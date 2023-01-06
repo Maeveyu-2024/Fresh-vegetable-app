@@ -4,10 +4,13 @@ import cn.woniu.dao.manage.EmployeeDao;
 import cn.woniu.entity.manage.Employee;
 import cn.woniu.service.manage.EmployeeService;
 import cn.woniu.utils.ResponseResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -23,8 +26,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
 
     @Override
-    public ResponseResult<?> queryEmployeeList(Employee employee) {
-        return new ResponseResult<>().ok(employeeDao.queryEmployeeList(employee));
+    public ResponseResult<?> queryEmployeeList(Employee employee,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Employee> employees = employeeDao.queryEmployeeList(employee);
+        PageInfo<Employee> pageInfo = new PageInfo(employees);
+        return new ResponseResult<>().ok(pageInfo);
     }
 
     @Override
