@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @since 2023-01-05 11:38:51
  */
 public interface EmployeeService {
-    ResponseResult<?> queryEmployeeList(Employee employee);
+    ResponseResult<?> queryEmployeeList(Employee employee,int pageNum, int pageSize);
     ResponseResult<?> changeEmployeeStatusById(Integer id, Integer status);
 }
 

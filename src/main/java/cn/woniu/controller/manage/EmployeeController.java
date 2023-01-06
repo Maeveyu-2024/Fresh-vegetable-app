@@ -5,10 +5,7 @@ import cn.woniu.entity.manage.Employee;
 import cn.woniu.service.manage.EmployeeService;
 import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -33,8 +30,8 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("list")
-    public ResponseResult<?> queryEmployeeList(@RequestBody Employee employee){
-        return employeeService.queryEmployeeList(employee);
+    public ResponseResult<?> queryEmployeeList(@RequestBody Employee employee, @RequestParam int pageNum, int pageSize){
+        return employeeService.queryEmployeeList(employee,pageNum,pageSize);
     }
 
     /**
