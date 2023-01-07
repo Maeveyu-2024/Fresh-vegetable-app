@@ -1,6 +1,8 @@
 package cn.woniu.entity.manage;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -18,8 +20,10 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Supplier {
     //供应商表
+    @TableId(type = IdType.AUTO)
     private String id;
     //供应商公司
     private String company;
@@ -37,7 +41,7 @@ public class Supplier {
     private LocalDate updateTime;
     //状态 0:冻结 1:正常
     private Integer status;
-
-
+    @TableField(exist = false)
+    private String areaName;
 }
 

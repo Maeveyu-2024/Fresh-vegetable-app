@@ -15,13 +15,17 @@
     </update>
 
     <select id="queryAreaList" resultType="cn.woniu.entity.manage.Area">
+    SELECT id,name,status FROM `area`
+    <where>
+        <if test="name != null and name !=''">
+            and name like concat("%",#{name},"%")
+        </if>
+        and del= 1
+    </where>
+</select>
+    <select id="queryAllAreaList" resultType="cn.woniu.entity.manage.Area">
         SELECT id,name,status FROM `area`
-        <where>
-            <if test="name != null and name !=''">
-                and name like concat("%",#{name},"%")
-            </if>
-            and del= 1
-        </where>
+        where del = 1  and status = '启用'
     </select>
 
     <insert id="addArea">

@@ -19,6 +19,7 @@ public interface AreaService {
     ResponseResult<?> delArea(Long id);//逻辑删除area表数据
     ResponseResult<?> stopStatus(Long id);//停用area表数据
     ResponseResult<?> batchDelArea(List<Integer> ids);//批量删除area表数据
+    ResponseResult<?> queryAllAreaList();//查询全部地区
 
 }
 

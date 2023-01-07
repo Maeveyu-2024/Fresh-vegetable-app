@@ -12,6 +12,30 @@
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="areaName" column="area_name" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <select id="querySupplierAllByName" resultMap="SupplierMap">
+        SELECT
+        s.id,
+        s.company,
+        s.contact_person,
+        s.concat_tel,
+        s.area_id,
+        s.address,
+        s.description,
+        s.update_time,
+        s.STATUS,
+        a.NAME AS area_name
+        FROM
+        supplier s
+        LEFT JOIN area a
+        ON s.area_id = a.id
+        <where>
+            <if test="name!=null and name !=''">
+                company like concat("%",#{name},"%")
+            </if>
+            and s.status !=0
+        </where>
+        ORDER BY s.id DESC
+    </select>
 </mapper>

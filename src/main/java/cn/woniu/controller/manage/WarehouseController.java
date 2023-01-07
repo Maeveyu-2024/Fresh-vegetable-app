@@ -1,8 +1,12 @@
 package cn.woniu.controller.manage;
 
 
+import cn.woniu.entity.manage.Warehouse;
 import cn.woniu.service.manage.WarehouseService;
+import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,4 +24,34 @@ public class WarehouseController {
      */
     @Autowired
     private WarehouseService warehouseService;
+
+    /**
+     *查询仓库
+     * @param warehouse
+     * @return
+     */
+    @PostMapping("queryWarehouse")
+    public ResponseResult<?> queryWarehouse(@RequestBody Warehouse warehouse){
+        return warehouseService.queryWarehouseList(warehouse);
+    }
+
+    /**
+     * 添加仓库
+     * @param warehouse
+     * @return
+     */
+    @PostMapping("addWarehouse")
+    public ResponseResult<?> addWarehouse(@RequestBody Warehouse warehouse){
+        return warehouseService.addWarehouse(warehouse);
+    }
+
+    /**
+     * 修改仓库
+     * @param warehouse
+     * @return
+     */
+    @PostMapping("updateWarehouse")
+    public ResponseResult<?> updateWarehouse(@RequestBody Warehouse warehouse){
+        return warehouseService.updateWarehouse(warehouse);
+    }
 }
