@@ -34,6 +34,7 @@
             <if test="name!=null and name !=''">
                 company like concat("%",#{name},"%")
             </if>
+            and s.status !=0
         </where>
         ORDER BY s.id DESC
     </select>
