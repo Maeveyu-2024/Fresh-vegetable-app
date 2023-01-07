@@ -29,8 +29,11 @@ public class Area {
     //删除: 0:是 1:否
     private Integer del;
     //批量功能id集合
-    List<Integer> ids;
+    private List<Integer> ids;
+    //地域code集合
+    private List<String> areaValues;
 
+    private String AreaValue;
 
 
 }
