@@ -43,6 +43,7 @@
 	        age,
 	        gender,
 	        salary,
+	        username,
 	        department_id,
 	        status,
 	        birthday
