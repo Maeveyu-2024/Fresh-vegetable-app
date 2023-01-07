@@ -18,7 +18,9 @@ public interface AreaDao{
     void updateArea(Area area);//修改area表数据
     void delArea(Long id);//逻辑删除area表数据
     void stopStatus(Long id);//停用area表数据
+    void openStatus(Long id);//开启area表数据
     void batchDelArea(List<Integer> ids);//批量删除area表数据
     List<Area> queryAllAreaList();//查询全部地区
+    Integer queryOtherAreaById(Long id);//查询名下使用者数量
 
 }

@@ -44,12 +44,14 @@
 	        gender,
 	        salary,
 	        username,
+	        password,
 	        department_id,
 	        status,
 	        birthday
         FROM
 	        employee
 	    <where>
+	        status != 2
             <if test="name != null and name != ''">
                 and name like concat("%",#{name},"%")
             </if>
@@ -73,4 +75,12 @@
     <update id="updateEmployeeStatusById">
         update employee set status = #{status} where id = #{id}
     </update>
+
+    <update id="updateEmployeeInfo">
+        update employee set name=#{name},username=#{username},password=#{password},salary=#{salary},age=#{age},workage=#{workage},birthday=#{birthday} where id =#{id}
+    </update>
+
+    <insert id="insertEmployee">
+        insert into employee(name,username,password,birthday,age) values(#{name},#{username},#{password},#{birthday},#{age})
+    </insert>
 </mapper>

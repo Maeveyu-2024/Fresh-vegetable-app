@@ -54,4 +54,13 @@ public class WarehouseController {
     public ResponseResult<?> updateWarehouse(@RequestBody Warehouse warehouse){
         return warehouseService.updateWarehouse(warehouse);
     }
+
+    /**
+     * 逻辑删除仓库
+     * @return
+     */
+    @RequestMapping("deleteWarehouse")
+    public ResponseResult<?> deleteWarehouse(Integer id){
+        return warehouseService.deleteWarehouse(id);
+    }
 }

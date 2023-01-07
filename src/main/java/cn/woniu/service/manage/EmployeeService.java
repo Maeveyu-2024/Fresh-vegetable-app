@@ -15,5 +15,7 @@ import java.time.LocalDate;
 public interface EmployeeService {
     ResponseResult<?> queryEmployeeList(Employee employee,int pageNum, int pageSize);
     ResponseResult<?> changeEmployeeStatusById(Integer id, Integer status);
+    ResponseResult<?> updateEmployeeInfo(Employee employee);
+    ResponseResult<?> addEmployee(Employee employee);
 }
 

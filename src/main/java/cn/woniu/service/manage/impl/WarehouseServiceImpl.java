@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -44,6 +45,12 @@ public class WarehouseServiceImpl implements WarehouseService {
         int count = warehouseDao.updateById(warehouse);
         return new ResponseResult<>().ok(count);
 
+    }
+
+    @Override
+    public ResponseResult<?> deleteWarehouse(Integer id) {
+        int count = warehouseDao.updateWarehouseStatusById(id);
+        return new ResponseResult<>().ok(count);
     }
 }
 

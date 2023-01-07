@@ -35,10 +35,30 @@ public class EmployeeController {
     }
 
     /**
-     * 修改用户状态(含逻辑删除)
+     * 修改员工状态(含逻辑删除)
      */
     @RequestMapping("status")
     public ResponseResult<?> changeEmployeeStatusById(Integer id, Integer status){
         return employeeService.changeEmployeeStatusById(id, status);
+    }
+
+    /**
+     * 修改员工信息
+     * @param employee
+     * @return
+     */
+    @PostMapping("update")
+    public ResponseResult<?> updateEmployeeInfo(@RequestBody Employee employee){
+        return employeeService.updateEmployeeInfo(employee);
+    }
+
+    /**
+     * 新增员工
+     * @param employee
+     * @return
+     */
+    @PostMapping("add")
+    public ResponseResult<?> addEmployee(@RequestBody Employee employee){
+        return employeeService.addEmployee(employee);
     }
 }
