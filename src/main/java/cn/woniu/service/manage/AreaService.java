@@ -20,6 +20,8 @@ public interface AreaService {
     ResponseResult<?> stopStatus(Long id);//停用area表数据
     ResponseResult<?> batchDelArea(List<Integer> ids);//批量删除area表数据
     ResponseResult<?> queryAllAreaList();//查询全部地区
+    ResponseResult<?> queryOtherAreaById(Long id);//
+    ResponseResult<?> openStatus(Long id);//开始area表数据
 
 }
 

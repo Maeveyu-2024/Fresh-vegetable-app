@@ -12,11 +12,12 @@
     </resultMap>
 
     <select id="queryWarehouseList" resultType="cn.woniu.entity.manage.Warehouse">
-        select w.id,w.name,w.status,w.address,w.update_time ,e.name as employee_name
+        select w.id,w.name,w.status,w.address,w.update_time ,e.name as employee_name,w.employee_id
         from warehouse w
         left join employee e
         on w.employee_id=e.id
         <where>
+            and w.status != 2
             <if test="name != null and name != '' ">
                 and w.name like concat("%",#{name},"%")
             </if>
@@ -26,10 +27,13 @@
             <if test="employeeName != null and employeeName != '' ">
                 and e.name = #{employeeName}
             </if>
-            <if test="status != null and status > 0  ">
+            <if test="status != null and status > 0 and status != 2  ">
                 and w.status = #{status}
             </if>
         </where>
     </select>
+    <update id="updateWarehouseStatusById">
+        update warehouse set status = 2 where id = #{id}
+    </update>
 
 </mapper>
