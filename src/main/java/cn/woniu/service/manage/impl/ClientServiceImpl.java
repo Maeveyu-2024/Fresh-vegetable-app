@@ -101,6 +101,7 @@ public class ClientServiceImpl implements ClientService {
         return ResponseResult.FAILURE;
     }
 
+    @Override
     public String getAreaId(String areaName, List<String> areaValues) {
         Area area = clientDao.queryAreaByAreaName(areaName);
         if (area != null) {

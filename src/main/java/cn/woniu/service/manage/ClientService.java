@@ -54,6 +54,14 @@ public interface ClientService {
      */
     ResponseResult<?> updateBatchStatus(List<String> clientIds, Integer status);
 
+    /**
+     * 获得AreaId
+     *
+     * @param areaName   区域名
+     * @param areaValues 区域值
+     * @return
+     */
+    public String getAreaId(String areaName, List<String> areaValues);
 
 }
 
