@@ -9,8 +9,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -29,6 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseResult<?> queryEmployeeList(Employee employee,int pageNum, int pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Employee> employees = employeeDao.queryEmployeeList(employee);
+        //过滤后会把集合变成ArrayList失去分页效果,直接改xml
+//        List<Employee> collect = employees.stream().filter(e -> e.getStatus() != 2).collect(Collectors.toList());
         PageInfo<Employee> pageInfo = new PageInfo(employees);
         return new ResponseResult<>().ok(pageInfo);
     }
@@ -36,6 +39,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public ResponseResult<?> changeEmployeeStatusById(Integer id, Integer status) {
         return new ResponseResult<>().ok(employeeDao.updateEmployeeStatusById(id,status));
+    }
+
+    @Override
+    public ResponseResult<?> updateEmployeeInfo(Employee employee) {
+        return new ResponseResult<>().ok(employeeDao.updateEmployeeInfo(employee));
+    }
+
+    @Override
+    public ResponseResult<?> addEmployee(Employee employee) {
+        return new ResponseResult<>().ok(employeeDao.insertEmployee(employee));
     }
 }
 

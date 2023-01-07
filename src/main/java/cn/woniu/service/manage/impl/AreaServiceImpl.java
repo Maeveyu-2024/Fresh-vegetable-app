@@ -8,6 +8,7 @@ import cn.woniu.service.manage.AreaService;
 import cn.woniu.utils.ResponseResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,6 +41,8 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public ResponseResult<?> addArea(Area area) {
+        String areaValue = StringUtils.join(area.getAreaValues(), ' ');
+        area.setAreaValue(areaValue);
         areaDao.addArea(area);
         return new ResponseResult<>(200,"添加区域");
     }

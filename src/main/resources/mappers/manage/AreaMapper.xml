@@ -15,7 +15,7 @@
     </update>
 
     <select id="queryAreaList" resultType="cn.woniu.entity.manage.Area">
-    SELECT id,name,status FROM `area`
+    SELECT id,name,status,area_value FROM `area`
     <where>
         <if test="name != null and name !=''">
             and name like concat("%",#{name},"%")
@@ -24,13 +24,13 @@
     </where>
 </select>
     <select id="queryAllAreaList" resultType="cn.woniu.entity.manage.Area">
-        SELECT id,name,status FROM `area`
+        SELECT id,name,status,area_value FROM `area`
         where del = 1  and status = '启用'
     </select>
 
     <insert id="addArea">
-    insert into area(name,status,del)
-        values (#{name},'启用','1')
+    insert into area(name,status,del,area_value)
+        values (#{name},'启用','1',#{areaValue})
     </insert>
 
     <update id="updateArea">
