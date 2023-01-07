@@ -6,6 +6,7 @@ import cn.woniu.service.manage.SupplierService;
 import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,7 +45,7 @@ public class SupplierController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseResult SupplierAdd(Supplier supplier) {
+    public ResponseResult SupplierAdd(@RequestBody Supplier supplier) {
         return supplierService.SupplierAdd(supplier);
     }
 
@@ -55,7 +56,7 @@ public class SupplierController {
      * @return
      */
     @PostMapping("/update")
-    public ResponseResult SupplierUpdate(Supplier supplier) {
+    public ResponseResult SupplierUpdate(@RequestBody Supplier supplier) {
         return supplierService.SupplierUpdate(supplier);
     }
 
