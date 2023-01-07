@@ -4,6 +4,7 @@ import cn.woniu.dao.manage.GoodsDao;
 import cn.woniu.dao.manage.SupplierDao;
 import cn.woniu.entity.manage.Goods;
 import cn.woniu.entity.manage.Supplier;
+import cn.woniu.service.manage.AreaService;
 import cn.woniu.service.manage.SupplierService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Wrapper;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,6 +32,8 @@ public class SupplierServiceImpl implements SupplierService {
     private SupplierDao supplierDao;
     @Autowired(required = false)
     private GoodsDao goodsDao;
+    @Autowired(required = false)
+    private AreaService areaService;
 
     /**
      * 条件查询供应商列表
@@ -44,6 +48,10 @@ public class SupplierServiceImpl implements SupplierService {
         //开始分页
         PageHelper.startPage(pageNo, pageSize);
         List<Supplier> list = supplierDao.querySupplierAllByName(name);
+        list.forEach(supplier -> {
+            String[] s = supplier.getAreaValue().split(" ");
+            supplier.setAreaValues(Arrays.asList(s));
+        });
         //把查到的数据放到pageInfo
         PageInfo pageInfo = new PageInfo(list);
         return new ResponseResult().ok(pageInfo);
