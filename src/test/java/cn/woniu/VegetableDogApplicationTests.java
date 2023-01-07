@@ -16,11 +16,6 @@ class VegetableDogApplicationTests {
 
     @Test
     void contextLoads() {
-        Warehouse warehouse = new Warehouse();
-        List<Warehouse> warehouses = warehouseDao.queryWarehouseList(warehouse);
-        warehouses.forEach(e->{
-            System.out.println(e);
-        });
 
     }
 
