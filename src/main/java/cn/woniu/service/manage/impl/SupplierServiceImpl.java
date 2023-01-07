@@ -1,9 +1,12 @@
 package cn.woniu.service.manage.impl;
 
+import cn.woniu.dao.manage.GoodsDao;
 import cn.woniu.dao.manage.SupplierDao;
+import cn.woniu.entity.manage.Goods;
 import cn.woniu.entity.manage.Supplier;
 import cn.woniu.service.manage.SupplierService;
 import cn.woniu.utils.ResponseResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +28,8 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Autowired(required = false)
     private SupplierDao supplierDao;
+    @Autowired(required = false)
+    private GoodsDao goodsDao;
 
     /**
      * 条件查询供应商列表
@@ -59,6 +64,7 @@ public class SupplierServiceImpl implements SupplierService {
             return new ResponseResult(500, "失败");
         }
     }
+
     /**
      * 供应商修改
      *
@@ -74,6 +80,7 @@ public class SupplierServiceImpl implements SupplierService {
             return new ResponseResult(500, "失败");
         }
     }
+
     /**
      * 供应商冻结/解冻/逻辑删除
      *
@@ -84,20 +91,34 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public ResponseResult SupplierStatusUpdate(String id, Integer operate) {
         if (operate == 0) {//逻辑删除
-            UpdateWrapper<Supplier> wrapper = new UpdateWrapper<Supplier>();
-            wrapper.eq("id", id).set("status", 0);
-            int row = supplierDao.update(new Supplier(), wrapper);
-            return new ResponseResult().ok(row);
+            QueryWrapper<Goods> queryWrapper = new QueryWrapper<Goods>();
+            queryWrapper.eq("supplier_id", id);
+            Long counts = goodsDao.selectCount(queryWrapper);
+            if (counts == 0) {//判断是否关联有商品
+                UpdateWrapper<Supplier> wrapper = new UpdateWrapper<Supplier>();
+                wrapper.eq("id", id).set("status", 0);
+                int row = supplierDao.update(new Supplier(), wrapper);
+                return new ResponseResult().ok(row);
+            } else {
+                return new ResponseResult(500, "失败");
+            }
         } else if (operate == 1) {//解冻
             UpdateWrapper<Supplier> wrapper = new UpdateWrapper<Supplier>();
             wrapper.eq("id", id).set("status", 1);
             int row = supplierDao.update(new Supplier(), wrapper);
             return new ResponseResult().ok(row);
         } else if (operate == 2) {//冻结
-            UpdateWrapper<Supplier> wrapper = new UpdateWrapper<Supplier>();
-            wrapper.eq("id", id).set("status", 2);
-            int row = supplierDao.update(new Supplier(), wrapper);
-            return new ResponseResult().ok(row);
+            QueryWrapper<Goods> queryWrapper = new QueryWrapper<Goods>();
+            queryWrapper.eq("supplier_id", id);
+            Long counts = goodsDao.selectCount(queryWrapper);
+            if (counts == 0) {//判断是否关联有商品
+                UpdateWrapper<Supplier> wrapper = new UpdateWrapper<Supplier>();
+                wrapper.eq("id", id).set("status", 2);
+                int row = supplierDao.update(new Supplier(), wrapper);
+                return new ResponseResult().ok(row);
+            } else {
+                return new ResponseResult(500, "失败");
+            }
         } else {
             return new ResponseResult(500, "失败");
         }

@@ -14,5 +14,53 @@
         <result property="status" column="status" jdbcType="INTEGER"/>
         <result property="clientId" column="client_id" jdbcType="INTEGER"/>
     </resultMap>
+    <update id="updateBatchStatus">
+        UPDATE client SET status = #{status}
+        WHERE id in
+        <foreach collection="clientIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <select id="queryClient" resultType="cn.woniu.entity.manage.Client">
+        SELECT
+        c.id,
+        c.client_name,
+        c.address,
+        c.contact_person,
+        c.contact_tel,
+        c.update_time,
+        c.description,
+        c.status,
+        c.client_id,
+        c.area_id,
+        a.name AS areaName,
+        a.area_value
+        FROM
+        client c INNER JOIN area a ON c.area_id = a.id
+        WHERE
+        a.status = '启用'
+        AND a.del = 1
+        <if test="areaName != null and areaName != ''">
+            AND a.name = #{areaName}
+        </if>
+        <if test="contactPerson != null and contactPerson != ''">
+            AND c.contact_person like concat('%',#{contactPerson},'%')
+        </if>
+        <if test="clientName != null and clientName != ''">
+            AND c.client_name like concat('%',#{clientName},'%')
+        </if>
+        <if test="contactTel != null and contactTel != ''">
+            AND c.contact_tel like concat('%',#{contactTel},'%')
+        </if>
+        <if test="status != null">
+            AND c.status = #{status}
+        </if>
+
+    </select>
+    <select id="queryAreaByAreaName" resultType="cn.woniu.entity.manage.Area">
+        SELECT id, name, area_value FROM area
+        WHERE status = '启用' AND del = 1 AND name = #{areaName}
+    </select>
+
 
 </mapper>
