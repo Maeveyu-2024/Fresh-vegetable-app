@@ -63,6 +63,13 @@ public class AreaController {
         return areaService.stopStatus(id);
     }
     /**
+     *启用地区
+     */
+    @RequestMapping("/open")
+    ResponseResult<?> openStatus(Long id){
+        return areaService.openStatus(id);
+    }
+    /**
      *批量删除地区
      */
     @PostMapping("/delArea")
@@ -76,5 +83,12 @@ public class AreaController {
     @RequestMapping("/list")
     ResponseResult<?> queryAllAreaList(){
         return areaService.queryAllAreaList();
+    }
+    /**
+     *判断该地区是否存在客户
+     */
+    @RequestMapping("/custom")
+    ResponseResult<?> queryOtherAreaById(Long id){
+        return areaService.queryOtherAreaById(id);
     }
 }

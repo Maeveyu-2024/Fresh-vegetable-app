@@ -48,4 +48,17 @@
         where id=#{id}
     </update>
 
+    <update id="openStatus">
+         update area set status='启用'
+        where id=#{id}
+    </update>
+
+    <select id="queryOtherAreaById" resultType="java.lang.Integer">
+         select count(c.area_id+s.area_id) from area a
+        inner join client c on c.area_id=a.id
+        inner join supplier s on s.area_id=a.id
+		where s.area_id=#{id} and c.area_id=#{id}
+    </select>
+
+
 </mapper>
