@@ -2,9 +2,11 @@ package cn.woniu.service.manage.impl;
 
 import cn.woniu.dao.manage.GoodsDao;
 import cn.woniu.dao.manage.SupplierDao;
+import cn.woniu.entity.manage.Client;
 import cn.woniu.entity.manage.Goods;
 import cn.woniu.entity.manage.Supplier;
 import cn.woniu.service.manage.AreaService;
+import cn.woniu.service.manage.ClientService;
 import cn.woniu.service.manage.SupplierService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -34,6 +36,9 @@ public class SupplierServiceImpl implements SupplierService {
     private GoodsDao goodsDao;
     @Autowired(required = false)
     private AreaService areaService;
+    @Autowired(required = false)
+    private ClientServiceImpl clientServic;
+
 
     /**
      * 条件查询供应商列表
@@ -65,6 +70,7 @@ public class SupplierServiceImpl implements SupplierService {
      */
     @Override
     public ResponseResult SupplierAdd(Supplier supplier) {
+
         int row = supplierDao.insert(supplier);
         if (row != 0) {
             return new ResponseResult().ok(row);
