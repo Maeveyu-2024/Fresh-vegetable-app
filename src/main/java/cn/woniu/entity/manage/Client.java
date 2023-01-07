@@ -1,6 +1,7 @@
 package cn.woniu.entity.manage;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * (Client)表实体类
@@ -38,7 +40,16 @@ public class Client {
     //状态 0:停用 1:启用
     private Integer status;
     //客户id
-    private Integer clientId;
+    private String clientId;
+
+    //区域名
+    @TableField(exist = false)
+    private String areaName;
+    //区域code
+    @TableField(exist = false)
+    private String areaValue;
+    @TableField(exist = false)
+    private List<String> areaValues;
 
 
 }
