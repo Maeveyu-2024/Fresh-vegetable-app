@@ -2,6 +2,7 @@ package cn.woniu.controller.manage;
 
 
 import cn.woniu.service.manage.GoodsService;
+import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,4 +21,6 @@ public class GoodsController {
      */
     @Autowired
     private GoodsService goodsService;
+
+
 }

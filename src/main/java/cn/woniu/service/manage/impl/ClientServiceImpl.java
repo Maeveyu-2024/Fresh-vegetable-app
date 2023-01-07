@@ -55,16 +55,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ResponseResult<?> addClient(Client client) {
-        Area area = clientDao.queryAreaByAreaName(client.getAreaName());
-        if (area != null){
-            client.setAreaId(area.getId());
-        }else {
-            Area a = new Area();
-            a.setName(client.getAreaName());
-            a.setAreaValues(client.getAreaValues());
-            areaService.addArea(a);
-            client.setAreaId(clientDao.queryAreaByAreaName(client.getAreaName()).getId());
-        }
+        String areaId = getAreaId(client.getAreaName(), client.getAreaValues());
+        client.setAreaId(areaId);
         client.setStatus(1);
         client.setClientId(null);
         client.setUpdateTime(LocalDate.now());
@@ -77,16 +69,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ResponseResult<?> updateClient(Client client) {
-        Area area = clientDao.queryAreaByAreaName(client.getAreaName());
-        if (area != null){
-            client.setAreaId(area.getId());
-        }else {
-            Area a = new Area();
-            a.setName(client.getAreaName());
-            a.setAreaValues(client.getAreaValues());
-            areaService.addArea(a);
-            client.setAreaId(clientDao.queryAreaByAreaName(client.getAreaName()).getId());
-        }
+        String areaId = getAreaId(client.getAreaName(), client.getAreaValues());
+        client.setAreaId(areaId);
         client.setUpdateTime(LocalDate.now());
         int count = clientDao.updateById(client);
         if (count > 0) {
@@ -115,6 +99,19 @@ public class ClientServiceImpl implements ClientService {
             }
         }
         return ResponseResult.FAILURE;
+    }
+
+    public String getAreaId(String areaName, List<String> areaValues) {
+        Area area = clientDao.queryAreaByAreaName(areaName);
+        if (area != null) {
+            return area.getId();
+        } else {
+            Area a = new Area();
+            a.setName(areaName);
+            a.setAreaValues(areaValues);
+            areaService.addArea(a);
+            return clientDao.queryAreaByAreaName(areaName).getId();
+        }
     }
 
 }
