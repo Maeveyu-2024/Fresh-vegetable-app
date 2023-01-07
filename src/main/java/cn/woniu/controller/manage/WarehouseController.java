@@ -60,7 +60,15 @@ public class WarehouseController {
      * @return
      */
     @RequestMapping("deleteWarehouse")
-    public ResponseResult<?> deleteWarehouse(Integer id){
-        return warehouseService.deleteWarehouse(id);
+    public ResponseResult<?> deleteWarehouse(Integer id,Integer status){
+        return warehouseService.deleteWarehouse(id,status);
+    }
+    /**
+     * 更新仓库状态
+     * @return
+     */
+    @RequestMapping("updateWarehouseStatus")
+    public ResponseResult<?> updateWarehouseStatus(Integer id,Integer status){
+        return warehouseService.updateWarehouseStatus(id,status);
     }
 }
