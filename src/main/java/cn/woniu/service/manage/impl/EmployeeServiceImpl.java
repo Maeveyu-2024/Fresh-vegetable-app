@@ -50,5 +50,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public ResponseResult<?> addEmployee(Employee employee) {
         return new ResponseResult<>().ok(employeeDao.insertEmployee(employee));
     }
+
+    @Override
+    public ResponseResult<?> queryEmployeeStatusByUsername(String username) {
+        return new ResponseResult<>().ok(employeeDao.selectEmployeeStatus(username));
+    }
+
+    @Override
+    public ResponseResult<?> queryUsernameExist(String username) {
+        Employee employee = employeeDao.selectUsernameExist(username);
+        if(employee != null){
+            return new ResponseResult<>().ok(employee);
+        }
+        return new ResponseResult<>().ok(null);
+    }
 }
 

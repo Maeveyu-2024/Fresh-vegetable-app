@@ -61,4 +61,20 @@ public class EmployeeController {
     public ResponseResult<?> addEmployee(@RequestBody Employee employee){
         return employeeService.addEmployee(employee);
     }
+
+    /**
+     * 根据用户名查询员工状态
+     */
+    @RequestMapping("statusLogin")
+    public ResponseResult<?> queryEmployeeStatusByUsername(String username){
+        return employeeService.queryEmployeeStatusByUsername(username);
+    }
+
+    /**
+     * 根据用户名查询用户名是否存在
+     */
+    @RequestMapping("username")
+    public ResponseResult<?> queryUsernameExist(String username){
+        return employeeService.queryUsernameExist(username);
+    }
 }
