@@ -23,7 +23,7 @@
         <result property="type" column="type" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="queryGoodsList" resultType="Goods">
+    <select id="queryGoodsList" resultType="cn.woniu.entity.manage.Goods">
     SELECT
     	g.id,
     	g.name,
