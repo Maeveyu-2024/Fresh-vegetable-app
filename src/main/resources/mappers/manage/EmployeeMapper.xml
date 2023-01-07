@@ -83,4 +83,12 @@
     <insert id="insertEmployee">
         insert into employee(name,username,password,birthday,age) values(#{name},#{username},#{password},#{birthday},#{age})
     </insert>
+
+    <select id="selectEmployeeStatus" resultType="int">
+        select status from employee where username = #{username}
+    </select>
+
+    <select id="selectUsernameExist" resultType="cn.woniu.entity.manage.Employee">
+        select id,username from employee where username = #{username}
+    </select>
 </mapper>
