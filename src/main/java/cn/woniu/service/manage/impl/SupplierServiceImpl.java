@@ -35,9 +35,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Autowired(required = false)
     private GoodsDao goodsDao;
     @Autowired(required = false)
-    private AreaService areaService;
-    @Autowired(required = false)
-    private ClientServiceImpl clientServic;
+    private ClientService clientServic;
 
 
     /**
@@ -70,7 +68,8 @@ public class SupplierServiceImpl implements SupplierService {
      */
     @Override
     public ResponseResult SupplierAdd(Supplier supplier) {
-
+        String areaId = clientServic.getAreaId(supplier.getAreaName(), supplier.getAreaValues());
+        supplier.setAreaId(areaId);
         int row = supplierDao.insert(supplier);
         if (row != 0) {
             return new ResponseResult().ok(row);
@@ -87,6 +86,8 @@ public class SupplierServiceImpl implements SupplierService {
      */
     @Override
     public ResponseResult SupplierUpdate(Supplier supplier) {
+        String areaId = clientServic.getAreaId(supplier.getAreaName(), supplier.getAreaValues());
+        supplier.setAreaId(areaId);
         int row = supplierDao.updateById(supplier);
         if (row != 0) {
             return new ResponseResult().ok(row);
