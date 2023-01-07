@@ -30,5 +30,25 @@ public interface EmployeeDao extends BaseMapper<Employee> {
      */
     List<Employee> queryEmployeeList(Employee employee);
 
+    /**
+     * 通过传入id和要修改的status更新员工的状态
+     * @param id
+     * @param status
+     * @return
+     */
     int updateEmployeeStatusById(Integer id , Integer status);
+
+    /**
+     * 修改员工信息
+     * @param employee
+     * @return
+     */
+    int updateEmployeeInfo(Employee employee);
+
+    /**
+     * 新增员工
+     * @param employee
+     * @return
+     */
+    int insertEmployee(Employee employee);
 }
