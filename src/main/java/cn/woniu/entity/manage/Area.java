@@ -32,8 +32,9 @@ public class Area {
     private List<Integer> ids;
     //地域code集合
     private List<String> areaValues;
-
+    //地域code
     private String AreaValue;
+
 
 
 }

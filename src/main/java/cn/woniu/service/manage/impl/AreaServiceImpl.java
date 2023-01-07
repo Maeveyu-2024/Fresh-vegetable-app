@@ -76,5 +76,21 @@ public class AreaServiceImpl implements AreaService {
         List<Area> areas = areaDao.queryAllAreaList();
         return new ResponseResult<>(200,"查询区域",areas);
     }
+
+    @Override
+    public ResponseResult<?> queryOtherAreaById(Long id) {
+        Integer areaId = areaDao.queryOtherAreaById(id);
+        if (areaId>0){
+            return new ResponseResult<>(201,"存在客户");
+        }else{
+            return new ResponseResult<>(202,"不存在客户");
+        }
+    }
+
+    @Override
+    public ResponseResult<?> openStatus(Long id) {
+        areaDao.openStatus(id);
+        return new ResponseResult<>(200,"启用区域状态");
+    }
 }
 

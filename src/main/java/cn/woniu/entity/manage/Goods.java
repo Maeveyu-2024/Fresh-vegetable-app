@@ -32,7 +32,7 @@ public class Goods {
     //商品类别
     private String goodsTypeId;
     //份量单位
-    private Integer unitWeight;
+    private String unitWeight;
     //比重
     private Object conver;
     //供应商id
@@ -55,6 +55,14 @@ public class Goods {
     private Integer stockLowerLimit;
     //商品级别类型(成品,次品)
     private String type;
+    //连表查询增加字段
+    //商品类别
+    private String typeName;
+    //商品单位
+    private String unitName;
+    //供应商名称
+    private String company;
+
 
 
 }
