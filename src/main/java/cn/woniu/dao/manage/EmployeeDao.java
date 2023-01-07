@@ -51,4 +51,13 @@ public interface EmployeeDao extends BaseMapper<Employee> {
      * @return
      */
     int insertEmployee(Employee employee);
+    /**
+     * 查询员工状态
+     */
+    int selectEmployeeStatus(String username);
+
+    /**
+     * 查询用户名是否已存在
+     */
+    Employee selectUsernameExist(String username);
 }

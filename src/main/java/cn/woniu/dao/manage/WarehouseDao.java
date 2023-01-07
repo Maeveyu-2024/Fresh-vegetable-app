@@ -22,11 +22,11 @@ public interface WarehouseDao extends BaseMapper<Warehouse> {
     List<Warehouse> queryWarehouseList (Warehouse warehouse);
 
     /**
-     * 逻辑删除仓库
+     * 逻辑删除仓库,修改仓库状态
      * @param id
      * @return
      */
-    int updateWarehouseStatusById(Integer id);
+    int updateWarehouseStatusById(Integer id,Integer status);
 
 
 }

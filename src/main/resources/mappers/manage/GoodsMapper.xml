@@ -23,4 +23,59 @@
         <result property="type" column="type" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="queryGoodsList" resultType="cn.woniu.entity.manage.Goods">
+    SELECT
+    	g.id,
+    	g.name,
+    	g.no,
+    	g.attrition_rate,
+    	g.unit_weight,
+    	g.conver,
+    	g.pic,
+    	g.status,
+    	g.sale_price,
+    	g.stock_lower_limit,
+    	g.type,
+    	gt.NAME as typeName,
+    	mu.name as unitName,
+    	s.company
+    FROM
+    	goods g
+    	LEFT JOIN measuring_unit mu ON g.unit_id = mu.id
+    	LEFT JOIN goods_type gt ON g.goods_type_id = gt.id
+    	LEFT JOIN supplier s ON g.supplier_id = s.id
+        <where>
+            status != 2
+            <if test="name != null and name != ''">
+                and g.name like concat("%",#{name},"%")
+            </if>
+            <if test="no != null and no != ''">
+                and g.no like concat("%",#{no},"%")
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and typeName = #{typeName}
+            </if>
+            <if test="unitName != null and unitName != ''">
+                and unitName = #{unitName}
+            </if>
+            <if test="status != null and status > 0 and status != 2">
+                and g.status = #{status}
+            </if>
+            <if test="company != null and company != ''">
+                and s.company = #{company}
+            </if>
+            <if test="type != null and type > 0">
+                and g.type = #{type}
+            </if>
+            <if test="salePrice != null ">
+                and sale_price &gt;= #{salePrice}
+            </if>
+            <if test="stockLowerLimit != null">
+                and stock_lower_limit &gt;= #{stockLowerLimit}
+            </if>
+        </where>
+    </select>
+
+
+
 </mapper>

@@ -48,8 +48,14 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public ResponseResult<?> deleteWarehouse(Integer id) {
-        int count = warehouseDao.updateWarehouseStatusById(id);
+    public ResponseResult<?> deleteWarehouse(Integer id,Integer status) {
+        int count = warehouseDao.updateWarehouseStatusById(id,status);
+        return new ResponseResult<>().ok(count);
+    }
+
+    @Override
+    public ResponseResult<?> updateWarehouseStatus(Integer id, Integer status) {
+        int count = warehouseDao.updateWarehouseStatusById(id, status);
         return new ResponseResult<>().ok(count);
     }
 }

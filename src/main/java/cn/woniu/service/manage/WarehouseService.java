@@ -38,7 +38,16 @@ public interface WarehouseService {
      * @param id
      * @return
      */
-    ResponseResult<?> deleteWarehouse(Integer id);
+    ResponseResult<?> deleteWarehouse(Integer id,Integer status);
+
+    /**
+     * 修改仓库状态
+     * @param id
+     * @param status
+     * @return
+     */
+    ResponseResult<?> updateWarehouseStatus(Integer id,Integer status);
+
 
 
 

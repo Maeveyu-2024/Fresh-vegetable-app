@@ -17,5 +17,7 @@ public interface EmployeeService {
     ResponseResult<?> changeEmployeeStatusById(Integer id, Integer status);
     ResponseResult<?> updateEmployeeInfo(Employee employee);
     ResponseResult<?> addEmployee(Employee employee);
+    ResponseResult<?> queryEmployeeStatusByUsername(String username);
+    ResponseResult<?> queryUsernameExist(String username);
 }
 
