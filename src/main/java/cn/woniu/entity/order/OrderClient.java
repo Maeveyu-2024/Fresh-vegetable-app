@@ -1,6 +1,7 @@
 package cn.woniu.entity.order;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * (OrderClient)表实体类
@@ -41,6 +43,12 @@ public class OrderClient {
     private LocalDate finishTime;
     //更新时间
     private LocalDate updateTime;
+    //订单详表
+    @TableField(exist = false)
+    private List<OrderItem> orderItemList;
+    //客户姓名
+    @TableField(exist = false)
+    private String clientName;
 
 
 }

@@ -1,6 +1,7 @@
 package cn.woniu.entity.order;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,12 @@ public class OrderItem {
     private Integer unit;
     //状态
     private String status;
-
+    //商品名称
+    @TableField(exist = false)
+    private String goodsName;
+    //商品单价
+    @TableField(exist = false)
+    private Double goodsPrice;
 
 }
 
