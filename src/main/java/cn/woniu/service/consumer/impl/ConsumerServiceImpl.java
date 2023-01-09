@@ -17,5 +17,6 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Autowired(required = false)
     private ConsumerDao consumerDao;
+
 }
 
