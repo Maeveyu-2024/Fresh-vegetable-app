@@ -37,36 +37,37 @@
     </select>
     <select id="queryEmployeeList" resultType="cn.woniu.entity.manage.Employee">
         SELECT
-	        id,
-	        name,
-	        workage,
-	        age,
-	        gender,
-	        salary,
-	        username,
-	        password,
-	        department_id,
-	        status,
-	        birthday
+	        e.id,
+	        e.name,
+	        e.workage,
+	        e.age,
+	        e.gender,
+	        e.salary,
+	        e.username,
+	        e.password,
+	        e.department_id,
+	        e.status,
+	        e.birthday,
+	        dept.name as department_name
         FROM
-	        employee
+	        employee e left join department dept on department_id = dept.id
 	    <where>
-	        status != 2
+	        e.status != 2
             <if test="name != null and name != ''">
-                and name like concat("%",#{name},"%")
+                and e.name like concat("%",#{name},"%")
             </if>
             <if test="departmentId != null and departmentId != ''">
-                and department_id = #{departmentId}
+                and e.department_id = #{departmentId}
             </if>
             <if test="workage != null and workage != ''">
-                and workage &gt;= #{workage}
+                and e.workage &gt;= #{workage}
             </if>
             <foreach collection="selectInductionTime" item="InductionTime" index="index">
                 <if test="index == 0 and InductionTime != null">
-                    and induction_time &gt;= #{InductionTime}
+                    and e.induction_time &gt;= #{InductionTime}
                 </if>
                 <if test="index == 1 and InductionTime != null">
-                    and induction_time &lt;= #{InductionTime}
+                    and e.induction_time &lt;= #{InductionTime}
                 </if>
             </foreach>
         </where>
@@ -77,7 +78,7 @@
     </update>
 
     <update id="updateEmployeeInfo">
-        update employee set name=#{name},username=#{username},password=#{password},salary=#{salary},age=#{age},workage=#{workage},birthday=#{birthday} where id =#{id}
+        update employee set name=#{name},username=#{username},password=#{password},salary=#{salary},age=#{age},workage=#{workage},birthday=#{birthday},gender=#{gender},department_id = #{departmentId} where id =#{id}
     </update>
 
     <insert id="insertEmployee">
