@@ -8,5 +8,17 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
     </resultMap>
+    <select id="selectDeptList" resultType="cn.woniu.entity.manage.Department">
+        select id,name,status from department where status != 2
+    </select>
+    <update id="updateDeptStatus">
+        update department set status=#{status} where id = #{id}
+    </update>
+    <select id="selectDeptByName" resultType="cn.woniu.entity.manage.Department">
+        select name from department where name =#{name}
+    </select>
 
+    <select id="selectEmployeeByDeptId" resultType="cn.woniu.entity.manage.Employee">
+        select id from employee where department_id = #{id}
+    </select>
 </mapper>
