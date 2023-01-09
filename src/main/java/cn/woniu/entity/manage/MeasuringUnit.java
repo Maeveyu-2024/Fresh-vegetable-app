@@ -23,7 +23,7 @@ public class MeasuringUnit {
     private String name;
     //状态 0:停用 1:启用
     private Integer status;
-    //重量
+    //换算kg
     private Object weight;
     //是否删除:0:删除,1:未删除
     private String del;

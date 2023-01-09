@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * (Supplier)表实体类
@@ -43,5 +44,9 @@ public class Supplier {
     private Integer status;
     @TableField(exist = false)
     private String areaName;
+    @TableField(exist = false)
+    private String areaValue;
+    @TableField(exist = false)
+    private List<String> areaValues;
 }
 

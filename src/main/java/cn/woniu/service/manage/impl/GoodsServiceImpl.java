@@ -61,7 +61,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ResponseResult<?> queryUnitNameList() {
-        List<MeasuringUnit> measuringUnits = measuringUnitDao.selectList(null);
+        List<MeasuringUnit> measuringUnits = measuringUnitDao.queryAlList();
         List<MeasuringUnit> collect = measuringUnits.stream().filter(e -> e.getStatus() == 1).collect(Collectors.toList());
         return new ResponseResult<>().ok(collect);
     }
