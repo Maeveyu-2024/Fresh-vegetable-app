@@ -25,7 +25,8 @@
         s.description,
         s.update_time,
         s.STATUS,
-        a.NAME AS area_name
+        a.NAME AS area_name,
+        a.area_value
         FROM
         supplier s
         LEFT JOIN area a
