@@ -1,6 +1,7 @@
 package cn.woniu.dao.manage;
 
 
+import cn.woniu.entity.manage.Employee;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.manage.Warehouse;
 
@@ -26,7 +27,15 @@ public interface WarehouseDao extends BaseMapper<Warehouse> {
      * @param id
      * @return
      */
-    int updateWarehouseStatusById(Integer id,Integer status);
+    int updateWarehouseStatusById(String id,Integer status);
+
+    /**
+     * 查询员工列表
+     * @return
+     */
+    List<Employee> queryEmployeeList ();
+
+
 
 
 }

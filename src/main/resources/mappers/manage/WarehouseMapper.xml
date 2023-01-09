@@ -27,7 +27,7 @@
             <if test="employeeName != null and employeeName != '' ">
                 and e.name = #{employeeName}
             </if>
-            <if test="status != null and status > 0 and status != 2  ">
+            <if test="status != null and status >= 0 and status != 2  ">
                 and w.status = #{status}
             </if>
         </where>
@@ -35,5 +35,23 @@
     <update id="updateWarehouseStatusById">
         update warehouse set status = #{status} where id = #{id}
     </update>
+
+    <select id="queryEmployeeList" resultType="cn.woniu.entity.manage.Employee">
+        SELECT
+            id,
+        name,
+            workage,
+            age,
+            gender,
+            salary,
+            username,
+            password,
+            department_id,
+            status,
+            birthday
+        FROM
+            employee
+        where status = 1
+    </select>
 
 </mapper>

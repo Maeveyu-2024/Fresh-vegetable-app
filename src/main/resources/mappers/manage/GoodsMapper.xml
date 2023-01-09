@@ -29,11 +29,15 @@
     	g.name,
     	g.no,
     	g.attrition_rate,
+    	g.goods_type_id,
+    	g.supplier_id,
+    	g.unit_id,
     	g.unit_weight,
     	g.conver,
     	g.pic,
     	g.status,
     	g.sale_price,
+    	g.stock,
     	g.stock_lower_limit,
     	g.type,
     	gt.NAME as typeName,
@@ -45,7 +49,7 @@
     	LEFT JOIN goods_type gt ON g.goods_type_id = gt.id
     	LEFT JOIN supplier s ON g.supplier_id = s.id
         <where>
-            status != 2
+            g.status != 2
             <if test="name != null and name != ''">
                 and g.name like concat("%",#{name},"%")
             </if>
@@ -53,12 +57,12 @@
                 and g.no like concat("%",#{no},"%")
             </if>
             <if test="typeName != null and typeName != ''">
-                and typeName = #{typeName}
+                and gt.NAME = #{typeName}
             </if>
             <if test="unitName != null and unitName != ''">
-                and unitName = #{unitName}
+                and mu.name = #{unitName}
             </if>
-            <if test="status != null and status > 0 and status != 2">
+            <if test="status != null and status >= 0 and status != 2">
                 and g.status = #{status}
             </if>
             <if test="company != null and company != ''">
@@ -70,11 +74,17 @@
             <if test="salePrice != null ">
                 and sale_price &gt;= #{salePrice}
             </if>
-            <if test="stockLowerLimit != null">
-                and stock_lower_limit &gt;= #{stockLowerLimit}
+            <if test="stock != null">
+                and stock &gt;= #{stock}
             </if>
         </where>
     </select>
+
+    <update id="updateGoodsStatusById">
+        update goods set status = #{status} where id = #{id}
+    </update>
+
+
 
 
 

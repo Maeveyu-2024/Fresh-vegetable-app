@@ -16,5 +16,7 @@ public interface GoodsDao extends BaseMapper<Goods> {
 
     List<Goods>queryGoodsList(Goods goods);
 
+    int updateGoodsStatusById(String id,Integer status);
+
 
 }
