@@ -10,6 +10,7 @@ import cn.woniu.utils.ResponseResult;
  * @since 2023-01-05 11:38:51
  */
 public interface DepartmentService {
+    ResponseResult<?> queryDeptListAble();
     ResponseResult<?> queryDeptList(int pageNum, int pageSize);
     ResponseResult<?> updateDeptStatus(Integer id, Integer status);
     ResponseResult<?> queryDeptName(String name);

@@ -25,6 +25,10 @@ public class DepartmentController {
     public ResponseResult<?> queryDeptList(int pageNum, int pageSize){
         return departmentService.queryDeptList(pageNum, pageSize);
     }
+    @RequestMapping("ableList")
+    public ResponseResult<?> queryDeptListAble(){
+        return departmentService.queryDeptListAble();
+    }
     @RequestMapping("status")
     public ResponseResult<?> updateDeptStatus(Integer id, Integer status){
         return departmentService.updateDeptStatus(id,status);

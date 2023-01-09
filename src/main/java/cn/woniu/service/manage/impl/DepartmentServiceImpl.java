@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,6 +26,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired(required = false)
     private DepartmentDao departmentDao;
+
+    @Override
+    public ResponseResult<?> queryDeptListAble() {
+        List<Department> departments = departmentDao.selectDeptList();
+        List<Department> collect = departments.stream().filter(e -> e.getStatus() == 1).collect(Collectors.toList());
+        return new ResponseResult<>().ok(collect);
+    }
 
     @Override
     public ResponseResult<?> queryDeptList(int pageNum, int pageSize) {
