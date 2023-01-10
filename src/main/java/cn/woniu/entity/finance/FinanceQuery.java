@@ -1,6 +1,7 @@
 package cn.woniu.entity.finance;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,16 @@ public class FinanceQuery {
     private Double receivable;
     //收款时间
     private LocalDate recTime;
+    //订单表id
+    @TableField(exist = false)
+    private String orderId;
+    //订单编号
+    @TableField(exist = false)
+    private String NO;
+    //订单状态:
+    // 0:未审核,1:已审核,2:退货中,3:完成,4:删除
+    @TableField(exist = false)
+    private Integer ocStatus;
 
 
 }
