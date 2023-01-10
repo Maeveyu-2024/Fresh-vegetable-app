@@ -1,6 +1,7 @@
 package cn.woniu.entity.manage;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -57,10 +58,13 @@ public class Goods {
     private String type;
     //连表查询增加字段
     //商品类别
+    @TableField(exist = false)
     private String typeName;
     //商品单位
+    @TableField(exist = false)
     private String unitName;
     //供应商名称
+    @TableField(exist = false)
     private String company;
 
 

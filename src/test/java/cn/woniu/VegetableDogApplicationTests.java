@@ -1,5 +1,6 @@
 package cn.woniu;
 
+import cn.woniu.dao.order.OrderSummaryDao;
 import cn.woniu.entity.manage.Client;
 import cn.woniu.service.manage.ClientService;
 import org.junit.jupiter.api.Test;
@@ -11,10 +12,10 @@ class VegetableDogApplicationTests {
 
     @Autowired
     private ClientService clientService;
-
+    @Autowired(required = false)
+    private OrderSummaryDao orderSummaryDao;
     @Test
     void contextLoads() {
-
     }
 
 }
