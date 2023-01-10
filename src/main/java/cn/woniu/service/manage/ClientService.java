@@ -61,7 +61,13 @@ public interface ClientService {
      * @param areaValues 区域值
      * @return
      */
-    public String getAreaId(String areaName, List<String> areaValues);
+    String getAreaId(String areaName, List<String> areaValues);
+
+    /**
+     * 查询所有未删除客户
+     * @return
+     */
+    ResponseResult<?> queryClient();
 
 }
 

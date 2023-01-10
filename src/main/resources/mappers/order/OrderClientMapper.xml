@@ -27,6 +27,23 @@
             <result property="goodsPrice" column="sale_price"/>
         </collection>
     </resultMap>
+    <update id="updateOrderByOrderId">
+        UPDATE order_client oc, order_item oi
+        SET oc.status = 4, oi.status = 4
+        WHERE oc.id = oi.order_id AND oc.id = #{id}
+    </update>
+    <update id="updataOrderAddress">
+        UPDATE order_client SET address = #{address} WHERE id = #{id}
+    </update>
+    <update id="updateOrderMoney">
+        UPDATE order_client SET total_money = #{totalMoney} WHERE id = #{id}
+    </update>
+    <update id="updateOrderItem">
+        <foreach collection="orderItemList" item="orderItem" separator=";">
+            UPDATE order_item SET num = #{orderItem.num}, price = #{orderItem.price} WHERE goods_id = #{orderItem.goodsId}
+        </foreach>
+    </update>
+
     <select id="queryAll" resultMap="OrderClientMap">
         SELECT
             oc.id,
@@ -51,8 +68,21 @@
         FROM
             order_client oc
             LEFT JOIN order_item oi ON oc.id = oi.order_id
-             LEFT JOIN goods g ON oi.goods_id = g.id
+            LEFT JOIN goods g ON oi.goods_id = g.id
             LEFT JOIN client c ON oc.client_id = c.id
+        WHERE oc.status IN (0,1,2,3)
+        <if test="no != null and no != ''">
+            AND oc.no like concat('%',#{no},'%')
+        </if>
+        <if test="clientName != null and clientName != ''">
+            AND c.client_name like concat('%',#{clientName},'%')
+        </if>
+        <if test="status != null">
+            AND oc.status = #{status}
+        </if>
+        <if test="selectTime != null and selectTime.size > 0">
+            AND oc.pay_time BETWEEN #{selectTime[0]} AND #{selectTime[1]}
+        </if>
     </select>
 
 </mapper>

@@ -34,7 +34,7 @@ public class OrderClient {
     //订单总金额
     private Double totalMoney;
     //订单状态
-    private String status;
+    private Integer status;
     //付款时间
     private LocalDate payTime;
     //退货时间
@@ -43,12 +43,15 @@ public class OrderClient {
     private LocalDate finishTime;
     //更新时间
     private LocalDate updateTime;
-    //订单详表
+    //订单项表
     @TableField(exist = false)
     private List<OrderItem> orderItemList;
     //客户姓名
     @TableField(exist = false)
     private String clientName;
+    //下单时间区间
+    @TableField(exist = false)
+    private List<LocalDate> selectTime;
 
 
 }

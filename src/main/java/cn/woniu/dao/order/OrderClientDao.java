@@ -1,6 +1,7 @@
 package cn.woniu.dao.order;
 
 
+import cn.woniu.entity.order.OrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.order.OrderClient;
 
@@ -16,9 +17,41 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
 
     /**
      * 查询所有,根据查询条件
+     *
      * @param orderClient 查询条件
      * @return
      */
     List<OrderClient> queryAll(OrderClient orderClient);
+
+    /**
+     * 逻辑删除订单及关联的表
+     *
+     * @param id
+     * @return
+     */
+    Integer updateOrderByOrderId(String id);
+
+    /**
+     * 修改订单地址
+     *
+     * @param id      订单id
+     * @param address 订单地址
+     * @return
+     */
+    Integer updataOrderAddress(String id, String address);
+
+    /**
+     * 修改订单金额
+     * @param id
+     * @param totalMoney
+     * @return
+     */
+    Integer updateOrderMoney(String id, Double totalMoney);
+
+    /**
+     * 修改订单项
+     * @return
+     */
+    Integer updateOrderItem(List<OrderItem> orderItemList);
 
 }
