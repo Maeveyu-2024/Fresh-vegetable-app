@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -35,8 +36,15 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
 
     @Override
     public ResponseResult<?> addMeasuringUnit(MeasuringUnit measuringUnit) {
-        measuringUnitDao.addMeasuringUnit(measuringUnit);
-        return new ResponseResult<>(200,"添加计量单位表");
+        List<MeasuringUnit> measuringUnits = measuringUnitDao.queryAlList();
+        List<MeasuringUnit> collect = measuringUnits.stream().filter(m -> m.getName().equals(measuringUnit.getName()))
+                .collect(Collectors.toList());
+        if (collect.size()>0){
+            return new ResponseResult<>(200,"该计量单位表已存在");
+        }else{
+            measuringUnitDao.addMeasuringUnit(measuringUnit);
+            return new ResponseResult<>(200,"添加计量单位表");
+        }
     }
 
     @Override
