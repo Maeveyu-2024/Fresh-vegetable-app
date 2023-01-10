@@ -40,6 +40,7 @@
         WHERE
         a.status = '启用'
         AND a.del = 1
+        AND c.status in (0,1)
         <if test="areaName != null and areaName != ''">
             AND a.name = #{areaName}
         </if>

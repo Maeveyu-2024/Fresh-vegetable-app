@@ -4,6 +4,8 @@ package cn.woniu.dao.order;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.order.OrderClient;
 
+import java.util.List;
+
 /**
  * (OrderClient)表数据库访问层
  *
@@ -12,5 +14,11 @@ import cn.woniu.entity.order.OrderClient;
  */
 public interface OrderClientDao extends BaseMapper<OrderClient> {
 
+    /**
+     * 查询所有,根据查询条件
+     * @param orderClient 查询条件
+     * @return
+     */
+    List<OrderClient> queryAll(OrderClient orderClient);
 
 }

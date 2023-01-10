@@ -1,6 +1,7 @@
 package cn.woniu.entity.manage;
 
 
+import cn.woniu.entity.authority.Authority;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -53,6 +54,8 @@ public class Employee {
     //权限
     @TableField(exist = false)
     private List<String> auths;
+    @TableField(exist = false)
+    private List<Authority> children;
     //搜索用
     @TableField(exist = false)
     private LocalDate[] selectInductionTime;

@@ -11,7 +11,7 @@
             and del= 1
         </where>
     </select>
-    <select id="queryAlList" resultType="cn.woniu.entity.manage.Area">
+    <select id="queryAlList" resultType="cn.woniu.entity.manage.MeasuringUnit">
         SELECT id,name,status,weight FROM measuring_unit
         where del = 1  and status = 1
     </select>

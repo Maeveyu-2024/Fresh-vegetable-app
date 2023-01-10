@@ -1,6 +1,7 @@
 package cn.woniu.service.manage;
 
 
+import cn.woniu.entity.manage.Goods;
 import cn.woniu.entity.manage.Warehouse;
 import cn.woniu.utils.ResponseResult;
 
@@ -38,7 +39,7 @@ public interface WarehouseService {
      * @param id
      * @return
      */
-    ResponseResult<?> deleteWarehouse(Integer id,Integer status);
+    ResponseResult<?> deleteWarehouse(String id,Integer status);
 
     /**
      * 修改仓库状态
@@ -46,7 +47,13 @@ public interface WarehouseService {
      * @param status
      * @return
      */
-    ResponseResult<?> updateWarehouseStatus(Integer id,Integer status);
+    ResponseResult<?> updateWarehouseStatus(String id,Integer status);
+
+    /**
+     * 查询员工列表
+     * @return
+     */
+    ResponseResult<?> queryEmployeeList();
 
 
 

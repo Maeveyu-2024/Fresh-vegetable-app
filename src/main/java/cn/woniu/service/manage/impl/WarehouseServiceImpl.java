@@ -1,6 +1,7 @@
 package cn.woniu.service.manage.impl;
 
 import cn.woniu.dao.manage.WarehouseDao;
+import cn.woniu.entity.manage.Employee;
 import cn.woniu.entity.manage.Warehouse;
 import cn.woniu.service.manage.WarehouseService;
 import cn.woniu.utils.ResponseResult;
@@ -48,15 +49,21 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public ResponseResult<?> deleteWarehouse(Integer id,Integer status) {
+    public ResponseResult<?> deleteWarehouse(String id,Integer status) {
         int count = warehouseDao.updateWarehouseStatusById(id,status);
         return new ResponseResult<>().ok(count);
     }
 
     @Override
-    public ResponseResult<?> updateWarehouseStatus(Integer id, Integer status) {
+    public ResponseResult<?> updateWarehouseStatus(String id, Integer status) {
         int count = warehouseDao.updateWarehouseStatusById(id, status);
         return new ResponseResult<>().ok(count);
+    }
+
+    @Override
+    public ResponseResult<?> queryEmployeeList() {
+        List<Employee> employeeList = warehouseDao.queryEmployeeList();
+        return new ResponseResult<>().ok(employeeList);
     }
 }
 
