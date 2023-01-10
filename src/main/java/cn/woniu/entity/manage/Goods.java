@@ -1,11 +1,10 @@
 package cn.woniu.entity.manage;
 
 
-<<<<<<< HEAD
-=======
+
 
 import com.baomidou.mybatisplus.annotation.IdType;
->>>>>>> 609a0f880d1001384d9c2bb78356d4959ae1bc0e
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

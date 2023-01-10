@@ -1,12 +1,12 @@
 package cn.woniu;
 
-<<<<<<< HEAD
+
 import cn.woniu.dao.order.OrderSummaryDao;
-=======
+
 import cn.woniu.dao.manage.GoodsDao;
 import cn.woniu.dao.manage.GoodsTypeDao;
 import cn.woniu.dao.manage.WarehouseDao;
->>>>>>> 609a0f880d1001384d9c2bb78356d4959ae1bc0e
+
 import cn.woniu.entity.manage.Client;
 import cn.woniu.entity.manage.Goods;
 import cn.woniu.entity.manage.GoodsType;
@@ -40,8 +40,7 @@ class VegetableDogApplicationTests {
     private OrderSummaryDao orderSummaryDao;
     @Test
     void contextLoads() {
-<<<<<<< HEAD
-=======
+
         Warehouse warehouse = new Warehouse("1", null, null, null, null, null, null, null, null);
         List<Warehouse> warehouses = warehouseDao.queryWarehouseList(warehouse);
         warehouses.forEach(e->{
@@ -67,7 +66,7 @@ class VegetableDogApplicationTests {
             System.out.println(e);
         });
 
->>>>>>> 609a0f880d1001384d9c2bb78356d4959ae1bc0e
+
     }
 
 }
