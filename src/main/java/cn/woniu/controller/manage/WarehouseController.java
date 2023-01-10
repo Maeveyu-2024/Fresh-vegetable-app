@@ -60,7 +60,7 @@ public class WarehouseController {
      * @return
      */
     @RequestMapping("deleteWarehouse")
-    public ResponseResult<?> deleteWarehouse(Integer id,Integer status){
+    public ResponseResult<?> deleteWarehouse(String id,Integer status){
         return warehouseService.deleteWarehouse(id,status);
     }
     /**
@@ -68,7 +68,16 @@ public class WarehouseController {
      * @return
      */
     @RequestMapping("updateWarehouseStatus")
-    public ResponseResult<?> updateWarehouseStatus(Integer id,Integer status){
+    public ResponseResult<?> updateWarehouseStatus(String id,Integer status){
         return warehouseService.updateWarehouseStatus(id,status);
+    }
+
+    /**
+     *查询员工列表
+     *
+     */
+    @RequestMapping("queryEmployee")
+    public ResponseResult<?> queryEmployee(){
+        return warehouseService.queryEmployeeList();
     }
 }
