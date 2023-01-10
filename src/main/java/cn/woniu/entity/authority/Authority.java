@@ -1,11 +1,14 @@
 package cn.woniu.entity.authority;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * (Authority)表实体类
@@ -24,14 +27,15 @@ public class Authority {
 
     private Integer parentId;
 
-    private String type;
+    private Integer type;
 
     private String status;
 
     private String authCode;
 
     private String link;
-
+    @TableField(exist = false)
+    private List<Authority> children;
 
 }
 

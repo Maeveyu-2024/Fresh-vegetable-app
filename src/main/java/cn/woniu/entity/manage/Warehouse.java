@@ -35,6 +35,7 @@ public class Warehouse {
     //员工姓名
     @TableField(exist = false)
     private String employeeName;
+    //分页用
     @TableField(exist = false)
     private Integer pageNo;
     @TableField(exist = false)

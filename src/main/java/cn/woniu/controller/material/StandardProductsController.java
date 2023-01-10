@@ -1,8 +1,11 @@
 package cn.woniu.controller.material;
 
 
+import cn.woniu.entity.material.StandardProducts;
 import cn.woniu.service.material.StandardProductsService;
+import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,4 +23,30 @@ public class StandardProductsController {
      */
     @Autowired
     private StandardProductsService standardProductsService;
+
+    @RequestMapping("sup")
+    private ResponseResult<?> sup(){
+        return standardProductsService.querySup();
+    }
+
+    @RequestMapping("ware")
+    private ResponseResult<?> ware(){
+        return standardProductsService.querywarehouse();
+    }
+    @RequestMapping("query")
+    private ResponseResult<?> query(String id, String goodsName, String warehouse){
+        return standardProductsService.query(id,goodsName,warehouse);
+    }
+    @RequestMapping("add")
+    private ResponseResult<?> add(@RequestBody StandardProducts s){
+        return standardProductsService.add(s);
+    }
+    @RequestMapping("delete")
+    private ResponseResult<?> delete(@RequestBody StandardProducts s){
+        return standardProductsService.delete(s);
+    }
+    @RequestMapping("update")
+    private ResponseResult<?> update(@RequestBody StandardProducts s){
+        return standardProductsService.update1(s);
+    }
 }

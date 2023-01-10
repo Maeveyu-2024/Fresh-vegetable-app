@@ -13,5 +13,10 @@ import java.util.List;
  * @since 2023-01-05 11:38:52
  */
 public interface GoodsDao extends BaseMapper<Goods> {
+
     List<Goods>queryGoodsList(Goods goods);
+
+    int updateGoodsStatusById(String id,Integer status);
+
+
 }
