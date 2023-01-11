@@ -23,7 +23,7 @@
         g.name like concat("%",#{goodsName},"%")
         and sp.id like concat("%",#{id},"%")
         and w.address like concat("%",#{warehouse},"%")
+        and deleted = 0
     </where>
-
     </select>
 </mapper>

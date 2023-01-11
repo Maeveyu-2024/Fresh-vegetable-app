@@ -47,6 +47,12 @@ public class StandardProducts {
     @TableField(exist = false)
     private String warehouseAddress;
 
+    private String supplierId;
+
+    private Double price;
+    @TableField(exist = false)
+    private String unitName;
+
 
 }
 

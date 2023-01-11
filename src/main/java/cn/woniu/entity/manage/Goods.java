@@ -75,6 +75,7 @@ public class Goods {
     private Integer pageNo;
     @TableField(exist = false)
     private Integer pageSize;
+    private Integer purStatus;
 
 
 
