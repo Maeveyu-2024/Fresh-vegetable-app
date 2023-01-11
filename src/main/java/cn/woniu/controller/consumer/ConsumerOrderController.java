@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-01-05 11:38:50
  */
 @RestController
-@RequestMapping("/consumerOrder")
+@RequestMapping("/consumer/consumerOrder")
 public class ConsumerOrderController {
     /**
      * 服务对象

@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(new NoAuthorityHandler());
 
         http.authorizeRequests()
+                .antMatchers("/consumer/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated();
 

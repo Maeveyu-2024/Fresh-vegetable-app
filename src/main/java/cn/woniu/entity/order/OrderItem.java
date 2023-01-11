@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * (OrderItem)表实体类
  *
@@ -38,6 +40,9 @@ public class OrderItem {
     //商品单价
     @TableField(exist = false)
     private Double goodsPrice;
+    //商品单价
+    @TableField(exist = false)
+    private String unitName;
 
 }
 

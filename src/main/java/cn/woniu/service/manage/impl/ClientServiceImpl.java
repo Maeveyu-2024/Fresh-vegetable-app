@@ -115,5 +115,13 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    @Override
+    public ResponseResult<?> queryClient() {
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        return new ResponseResult<>().ok(clientDao.selectList(new QueryWrapper<Client>().in("status",list).select("DISTINCT client_name")));
+    }
+
 }
 
