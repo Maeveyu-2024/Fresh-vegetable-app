@@ -34,8 +34,16 @@ public class StandardProductsController {
         return standardProductsService.querywarehouse();
     }
     @RequestMapping("query")
-    private ResponseResult<?> query(String id, String goodsName, String warehouse){
-        return standardProductsService.query(id,goodsName,warehouse);
+    private ResponseResult<?> query(String id, String goodsName, String warehouse,Integer pageSize,Integer pageNum){
+        return standardProductsService.query(id,goodsName,warehouse,pageSize,pageNum);
+    }
+    @RequestMapping("query1")
+    private ResponseResult<?> query1(String id, String goodsName,Integer pageSize,Integer pageNum){
+        return standardProductsService.query1(id,goodsName,pageSize,pageNum);
+    }
+    @RequestMapping("query2")
+    private ResponseResult<?> query2(String id, String goodsName,Integer pageSize,Integer pageNum){
+        return standardProductsService.query2(id,goodsName,pageSize,pageNum);
     }
     @RequestMapping("add")
     private ResponseResult<?> add(@RequestBody StandardProducts s){
@@ -49,4 +57,10 @@ public class StandardProductsController {
     private ResponseResult<?> update(@RequestBody StandardProducts s){
         return standardProductsService.update1(s);
     }
+
+    @RequestMapping("update2")
+    private ResponseResult<?> update2(@RequestBody StandardProducts s){
+        return standardProductsService.update2(s);
+    }
+
 }

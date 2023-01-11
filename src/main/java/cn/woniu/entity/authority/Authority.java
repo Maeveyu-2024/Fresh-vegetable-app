@@ -29,7 +29,7 @@ public class Authority {
 
     private Integer type;
 
-    private String status;
+    private Boolean status;
 
     private String authCode;
 
