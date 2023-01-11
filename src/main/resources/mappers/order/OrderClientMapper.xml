@@ -22,7 +22,7 @@
             <result property="price" column="price"/>
             <result property="unit" column="unit"/>
             <result property="status" column="status"/>
-            <result property="goodsName" column="name"/>
+            <result property="goodsName" column="goods_name"/>
             <result property="goodsPrice" column="sale_price"/>
             <result property="unitName" column="unit_name"/>
         </collection>
@@ -39,6 +39,12 @@
             <result property="purStatus" column="pur_status"/>
         </collection>
     </resultMap>
+    <insert id="insertOrderItemList">
+        INSERT INTO order_item (order_id, goods_id, num, price, unit, status) VALUES
+        <foreach collection="orderItemList" item="orderItem" separator=",">
+            (#{orderItem.orderId}, #{orderItem.goodsId}, #{orderItem.num}, #{orderItem.price}, #{orderItem.unit}, 0)
+        </foreach>
+    </insert>
     <update id="updateOrderByOrderId">
         UPDATE order_client oc, order_item oi
         SET oc.status = 4, oc.update_time = now()

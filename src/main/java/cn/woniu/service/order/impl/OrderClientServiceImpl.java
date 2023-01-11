@@ -80,5 +80,17 @@ public class OrderClientServiceImpl implements OrderClientService {
         orderSummaryDao.insert(orderSummary);
         return new ResponseResult<>().ok(null);
     }
+
+    @Override
+    public ResponseResult<?> addOrder(OrderClient orderClient) {
+        orderClientDao.insert(orderClient);
+        orderClientDao.insertOrderItemList(orderClient.getOrderItemList());
+        return new ResponseResult<>().ok(null);
+    }
+
+    @Override
+    public ResponseResult<?> updateOrderStatus(String id, Integer status) {
+        return null;
+    }
 }
 
