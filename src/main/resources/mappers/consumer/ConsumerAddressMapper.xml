@@ -26,6 +26,6 @@
         FROM
             client c
             LEFT JOIN area a ON c.area_id = a.id
-        WHERE c.client_id = #{id}
+        WHERE c.client_id = #{id} AND c.status = 1
     </select>
 </mapper>
