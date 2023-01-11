@@ -138,7 +138,7 @@ public class StandardProductsServiceImpl implements StandardProductsService {
         queryWrapper.eq("pro_name",s.getGoodsName());
         if(s.getStatus()==0){
             Goods goods = goodsDao.selectById(s.getGoodsId());
-            goods.setPurStatus(1);
+            goods.setPurStatus(0);
             goodsDao.updateById(goods);
             s.setStatus(1);
            if(productReportDao.exists(queryWrapper)){
@@ -186,6 +186,16 @@ public class StandardProductsServiceImpl implements StandardProductsService {
         return new ResponseResult<>().ok(pageInfo);
 
 
+    }
+
+    @Override
+    public ResponseResult<?> query2(String id, String goodsName, Integer pageSize, Integer pageNum) {
+        QueryWrapper<OrderSummary> q = new QueryWrapper<>();
+        q.like("id",id);
+        q.like("goods_name",goodsName);
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<OrderSummary> pageInfo = new PageInfo<>(orderSummaryDao.selectList(q));
+        return new ResponseResult<>().ok(pageInfo);
     }
 
 

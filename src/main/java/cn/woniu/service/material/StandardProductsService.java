@@ -19,6 +19,8 @@ public interface StandardProductsService {
     ResponseResult<?> update1(StandardProducts s);
     ResponseResult<?> update2(StandardProducts s);
     ResponseResult<?> query1(String id,String goodsName,Integer pageSize,Integer pageNum);
+    ResponseResult<?> query2(String id,String goodsName,Integer pageSize,Integer pageNum);
+
 
 
 

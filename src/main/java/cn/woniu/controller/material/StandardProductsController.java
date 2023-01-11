@@ -41,6 +41,10 @@ public class StandardProductsController {
     private ResponseResult<?> query1(String id, String goodsName,Integer pageSize,Integer pageNum){
         return standardProductsService.query1(id,goodsName,pageSize,pageNum);
     }
+    @RequestMapping("query2")
+    private ResponseResult<?> query2(String id, String goodsName,Integer pageSize,Integer pageNum){
+        return standardProductsService.query2(id,goodsName,pageSize,pageNum);
+    }
     @RequestMapping("add")
     private ResponseResult<?> add(@RequestBody StandardProducts s){
         return standardProductsService.add(s);
