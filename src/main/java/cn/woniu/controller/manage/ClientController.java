@@ -48,6 +48,7 @@ public class ClientController {
 
     /**
      * 修改客户
+     *
      * @param client 客户信息
      * @return
      */
@@ -58,12 +59,23 @@ public class ClientController {
 
     /**
      * 修改客户状态/逻辑删除
+     *
      * @param clientId
      * @param status
      * @return
      */
     @RequestMapping("/updateStatus")
-    public ResponseResult<?> updateStatus(String clientId, Integer status){
+    public ResponseResult<?> updateStatus(String clientId, Integer status) {
         return clientService.updateStatus(clientId, status);
+    }
+
+    /**
+     * 查询所有未删除客户
+     *
+     * @return
+     */
+    @RequestMapping("/queryClient")
+    public ResponseResult<?> queryClient() {
+        return clientService.queryClient();
     }
 }

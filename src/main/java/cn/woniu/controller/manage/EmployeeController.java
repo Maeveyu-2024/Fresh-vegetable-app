@@ -5,6 +5,7 @@ import cn.woniu.entity.manage.Employee;
 import cn.woniu.service.manage.EmployeeService;
 import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -58,6 +59,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("add")
+    @PreAuthorize("hasAuthority(employeeAdd)")
     public ResponseResult<?> addEmployee(@RequestBody Employee employee){
         return employeeService.addEmployee(employee);
     }

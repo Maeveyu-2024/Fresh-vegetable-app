@@ -15,5 +15,15 @@
         <result property="deleted" column="deleted" jdbcType="INTEGER"/>
         <result property="goodsId" column="goods_id" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <select id="query" resultType="cn.woniu.entity.material.StandardProducts">
+    SELECT g.name as goodsName,w.address as warehouseAddress,sp.* FROM standard_products sp
+    left join `goods` g on goods_id=g.id
+    left join `warehouse` w on warehouse_id=w.id
+    <where>
+        g.name like concat("%",#{goodsName},"%")
+        and sp.id like concat("%",#{id},"%")
+        and w.address like concat("%",#{warehouse},"%")
+        and deleted = 0
+    </where>
+    </select>
 </mapper>
