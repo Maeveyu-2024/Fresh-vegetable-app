@@ -38,7 +38,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         parentAuth.forEach(e->{
             List<Authority> children = new ArrayList<>();
             authorities.forEach(child ->{
-                if(child.getParentId() == e.getId()){
+                if(e.getId().equals(child.getParentId())){
                     children.add(child);
                 }
                 e.setChildren(children);
