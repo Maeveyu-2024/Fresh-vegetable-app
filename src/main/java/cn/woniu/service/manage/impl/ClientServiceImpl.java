@@ -58,7 +58,6 @@ public class ClientServiceImpl implements ClientService {
         String areaId = getAreaId(client.getAreaName(), client.getAreaValues());
         client.setAreaId(areaId);
         client.setStatus(1);
-        client.setClientId(null);
         client.setUpdateTime(LocalDate.now());
         int count = clientDao.insert(client);
         if (count > 0) {
