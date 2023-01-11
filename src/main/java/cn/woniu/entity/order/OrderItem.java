@@ -31,7 +31,7 @@ public class OrderItem {
     //订单项总额
     private Double price;
     //订单项单位
-    private Integer unit;
+    private String unit;
     //状态
     private String status;
     //商品名称

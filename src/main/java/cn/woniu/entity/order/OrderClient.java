@@ -55,7 +55,8 @@ public class OrderClient {
     private List<LocalDate> selectTime;
     @TableField(exist = false)
     private List<Goods> goodsList;
-
-
+    //图表搜索的时间区间
+    @TableField(exist = false)
+    private LocalDate[] selectInductionTime;
 }
 
