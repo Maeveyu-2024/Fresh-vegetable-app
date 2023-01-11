@@ -41,4 +41,8 @@ public class AuthorityController {
     public ResponseResult<?> updateAuthByUid(@RequestBody List<Integer> ids, Integer id){
         return authorityService.updateAuthByUid(ids,id);
     }
+    @PostMapping("authCodes")
+    public ResponseResult<?> selectAuthCodesByIds(@RequestBody List<Integer> ids){
+        return authorityService.selectAuthCodeByAids(ids);
+    }
 }

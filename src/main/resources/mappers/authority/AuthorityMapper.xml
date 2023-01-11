@@ -51,4 +51,10 @@
             (#{id},#{aid})
         </foreach>
     </insert>
+    <select id="selectAuthCodeByAids" resultType="java.lang.String">
+        select auth_code from authority where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 </mapper>

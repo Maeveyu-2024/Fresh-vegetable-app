@@ -25,4 +25,6 @@ public interface AuthorityDao extends BaseMapper<Authority> {
     int deleteAllByUid(Integer id);
     //根据用户ID插入传入的权限Ids
     int insertAuthByIdsAndUid(List<Integer> ids, Integer id);
+    //通过传入的权限Ids查询对应的authCodes
+    List<String> selectAuthCodeByAids(List<Integer> ids);
 }
