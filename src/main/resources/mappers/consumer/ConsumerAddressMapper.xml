@@ -15,4 +15,17 @@
         <result property="userId" column="user_id" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <select id="queryClientAddressByClientId" resultType="cn.woniu.entity.manage.Client">
+        SELECT
+            c.id,
+            c.contact_person,
+            c.address,
+            c.contact_tel,
+            a.`name` AS areaName,
+            a.area_value
+        FROM
+            client c
+            LEFT JOIN area a ON c.area_id = a.id
+        WHERE c.client_id = #{id}
+    </select>
 </mapper>
