@@ -12,6 +12,21 @@
         <result property="type" column="type" jdbcType="VARCHAR"/>
         <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
         <result property="unit" column="unit" jdbcType="VARCHAR"/>
+        <result property="unitName" column="unit_name" jdbcType="VARCHAR"/>
     </resultMap>
+    <select id="queryruku" resultType="cn.woniu.entity.order.OrderSummary">
+    select
+	    os.id,
+	    g.name goods_name,
+	    os.demand,
+	    mu.name unit_name
+    from
+	    order_summary os
+    left join
+	    goods g on goods_id=g.id
+    left join
+	    measuring_unit mu on unit=mu.id
+	where os.status=1
+    </select>
 
 </mapper>

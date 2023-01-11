@@ -2,6 +2,7 @@ package cn.woniu.controller.order;
 
 
 import cn.woniu.service.order.OrderSummaryService;
+import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,4 +21,9 @@ public class OrderSummaryController {
      */
     @Autowired
     private OrderSummaryService orderSummaryService;
+
+    @RequestMapping("caigou")
+    private ResponseResult<?> queryruku(){
+        return orderSummaryService.queryku();
+    }
 }

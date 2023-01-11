@@ -26,7 +26,7 @@ public class ProductReport {
     //成品名称
     private String proName;
     //成品数量
-    private Object proNum;
+    private Double proNum;
     //单位名称
     private String unitName;
 

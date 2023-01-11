@@ -2,7 +2,9 @@ package cn.woniu.entity.manage;
 
 
 
+
 import com.baomidou.mybatisplus.annotation.IdType;
+
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -58,6 +60,8 @@ public class Goods {
     private Integer stockLowerLimit;
     //商品级别类型(成品,次品)
     private String type;
+    //采购状态
+    private Integer purStatus;
     //连表查询增加字段
     //商品类别
     @TableField(exist = false)

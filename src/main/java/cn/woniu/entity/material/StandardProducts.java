@@ -1,6 +1,7 @@
 package cn.woniu.entity.material;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,16 @@ public class StandardProducts {
     private Integer deleted;
     //货物id
     private String goodsId;
+    @TableField(exist = false)
+    private String goodsName;
+    @TableField(exist = false)
+    private String warehouseAddress;
+
+    private String supplierId;
+
+    private Double price;
+    @TableField(exist = false)
+    private String unitName;
 
 
 }
