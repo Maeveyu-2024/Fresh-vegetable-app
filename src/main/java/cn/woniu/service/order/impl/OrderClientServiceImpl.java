@@ -2,9 +2,11 @@ package cn.woniu.service.order.impl;
 
 import cn.woniu.dao.order.OrderClientDao;
 import cn.woniu.dao.order.OrderItemDao;
+import cn.woniu.dao.order.OrderSummaryDao;
 import cn.woniu.entity.manage.Client;
 import cn.woniu.entity.order.OrderClient;
 import cn.woniu.entity.order.OrderItem;
+import cn.woniu.entity.order.OrderSummary;
 import cn.woniu.service.order.OrderClientService;
 import cn.woniu.utils.ResponseResult;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +14,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,13 +31,18 @@ public class OrderClientServiceImpl implements OrderClientService {
 
     @Autowired(required = false)
     private OrderClientDao orderClientDao;
-
+    @Autowired(required = false)
+    private OrderSummaryDao orderSummaryDao;
 
     @Override
     public ResponseResult<?> queryOrder(OrderClient orderClient, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        PageInfo<OrderClient> pageInfo = new PageInfo<>(orderClientDao.queryAll(orderClient));
-        return new ResponseResult<>().ok(pageInfo);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total", orderClientDao.pageCount(orderClient));
+        List<OrderClient> orderClients = orderClientDao.queryAll(orderClient);
+        List<OrderClient> orderClientList = orderClients.stream().skip((pageNum - 1) * pageSize).limit(pageSize).collect(Collectors.toList());
+        map.put("list", orderClientList);
+
+        return new ResponseResult<>().ok(map);
     }
 
     @Override
@@ -59,6 +70,15 @@ public class OrderClientServiceImpl implements OrderClientService {
         orderClientDao.updateOrderMoney(orderClient.getId(), orderClient.getTotalMoney());
         Integer count = orderClientDao.updateOrderItem(orderClient.getOrderItemList());
         return new ResponseResult<>().ok(count);
+    }
+
+    @Override
+    @Transactional
+    public ResponseResult<?> check(OrderSummary orderSummary) {
+        orderClientDao.updateOrderStatus(orderSummary.getOrderId());
+        orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
+        orderSummaryDao.insert(orderSummary);
+        return new ResponseResult<>().ok(null);
     }
 }
 

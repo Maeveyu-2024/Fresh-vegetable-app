@@ -16,8 +16,7 @@
         <result property="updateTime" column="update_time"/>
         <result property="clientName" column="client_name"/>
         <collection property="orderItemList" ofType="cn.woniu.entity.order.OrderItem">
-            <id property="id" column="id"/>
-            <result property="orderId" column="order_id"/>
+            <id property="id" column="oi_id"/>
             <result property="goodsId" column="goods_id"/>
             <result property="num" column="num"/>
             <result property="price" column="price"/>
@@ -25,51 +24,104 @@
             <result property="status" column="status"/>
             <result property="goodsName" column="name"/>
             <result property="goodsPrice" column="sale_price"/>
+            <result property="unitName" column="unit_name"/>
+        </collection>
+        <collection property="goodsList" ofType="cn.woniu.entity.manage.Goods">
+            <id property="id" column="goods_id"/>
+            <result property="name" column="goods_name"/>
+            <result property="updateTime" column="goods_update_time"/>
+            <result property="status" column="goods_status"/>
+            <result property="salePrice" column="sale_price"/>
+            <result property="stock" column="pro_num"/>
+            <result property="stockLowerLimit" column="stock_lower_limit"/>
+            <result property="stockUpperLimit" column="stock_upper_limit"/>
+            <result property="unitId" column="unit_id"/>
+            <result property="purStatus" column="pur_status"/>
         </collection>
     </resultMap>
     <update id="updateOrderByOrderId">
         UPDATE order_client oc, order_item oi
-        SET oc.status = 4, oi.status = 4
+        SET oc.status = 4, oc.update_time = now()
         WHERE oc.id = oi.order_id AND oc.id = #{id}
     </update>
     <update id="updataOrderAddress">
-        UPDATE order_client SET address = #{address} WHERE id = #{id}
+        UPDATE order_client SET address = #{address}, update_time = now() WHERE id = #{id}
     </update>
     <update id="updateOrderMoney">
-        UPDATE order_client SET total_money = #{totalMoney} WHERE id = #{id}
+        UPDATE order_client SET total_money = #{totalMoney}, update_time = now() WHERE id = #{id}
     </update>
     <update id="updateOrderItem">
         <foreach collection="orderItemList" item="orderItem" separator=";">
-            UPDATE order_item SET num = #{orderItem.num}, price = #{orderItem.price} WHERE goods_id = #{orderItem.goodsId}
+            UPDATE order_item SET num = #{orderItem.num}, price = #{orderItem.price} WHERE goods_id =
+            #{orderItem.goodsId}
         </foreach>
+    </update>
+    <update id="updateOrderStatus">
+        UPDATE order_client SET status = 1 WHERE id = #{id}
+    </update>
+    <update id="updateGoodsPurStatus">
+        UPDATE goods SET pur_status = 1 WHERE id = #{id}
     </update>
 
     <select id="queryAll" resultMap="OrderClientMap">
         SELECT
-            oc.id,
-            oc.no,
-            oc.client_id,
-            oc.order_time,
-            oc.address,
-            oc.total_money,
-            oc.status,
-            oc.pay_time,
-            oc.receive_time,
-            oc.finish_time,
-            oc.update_time,
-            oi.id,
-            oi.goods_id,
-            oi.num,
-            oi.price,
-            oi.status,
-            g.name,
-            g.sale_price,
-            c.client_name
+        oc.id,
+        oc.no,
+        oc.client_id,
+        oc.order_time,
+        oc.address,
+        oc.total_money,
+        oc.status,
+        oc.pay_time,
+        oc.receive_time,
+        oc.finish_time,
+        oc.update_time,
+        oi.id,
+        oi.goods_id,
+        oi.num,
+        oi.price,
+        oi.status,
+        g.name AS goods_name,
+        g.update_time AS goods_update_time,
+        g.sale_price,
+        g.unit_id,
+        g.status AS goods_status,
+        g.pur_status,
+        pr.pro_num,
+        g.stock_lower_limit,
+        g.stock_upper_limit,
+        c.client_name,
+        mu.name AS unit_name
         FROM
-            order_client oc
-            LEFT JOIN order_item oi ON oc.id = oi.order_id
-            LEFT JOIN goods g ON oi.goods_id = g.id
-            LEFT JOIN client c ON oc.client_id = c.id
+        order_client oc
+        LEFT JOIN order_item oi ON oc.id = oi.order_id
+        LEFT JOIN goods g ON oi.goods_id = g.id
+        LEFT JOIN client c ON oc.client_id = c.id
+        LEFT JOIN measuring_unit mu ON oi.unit = mu.id
+        LEFT JOIN product_report pr ON pr.pro_name = g.name
+        WHERE oc.status IN (0,1,2,3)
+        <if test="oc.no != null and oc.no != ''">
+            AND oc.no like concat('%',#{oc.no},'%')
+        </if>
+        <if test="oc.clientName != null and oc.clientName != ''">
+            AND c.client_name like concat('%',#{oc.clientName},'%')
+        </if>
+        <if test="oc.status != null">
+            AND oc.status = #{oc.status}
+        </if>
+        <if test="oc.selectTime != null and oc.selectTime.size > 0">
+            AND oc.pay_time BETWEEN #{oc.selectTime[0]} AND #{oc.selectTime[1]}
+        </if>
+    </select>
+    <select id="pageCount" resultType="java.lang.Integer">
+        SELECT
+        count(distinct oc.id)
+        FROM
+        order_client oc
+        LEFT JOIN order_item oi ON oc.id = oi.order_id
+        LEFT JOIN goods g ON oi.goods_id = g.id
+        LEFT JOIN client c ON oc.client_id = c.id
+        LEFT JOIN measuring_unit mu ON oi.unit = mu.id
         WHERE oc.status IN (0,1,2,3)
         <if test="no != null and no != ''">
             AND oc.no like concat('%',#{no},'%')

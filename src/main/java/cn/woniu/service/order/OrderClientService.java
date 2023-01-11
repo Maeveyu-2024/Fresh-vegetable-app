@@ -3,6 +3,7 @@ package cn.woniu.service.order;
 
 import cn.woniu.entity.order.OrderClient;
 import cn.woniu.entity.order.OrderItem;
+import cn.woniu.entity.order.OrderSummary;
 import cn.woniu.utils.ResponseResult;
 
 /**
@@ -44,5 +45,11 @@ public interface OrderClientService {
      */
     ResponseResult<?> updateOrderItem(OrderClient orderClient);
 
+    /**
+     * 修改订单状态, 生成采购计划
+     * @param orderSummary
+     * @return
+     */
+    ResponseResult<?> check(OrderSummary orderSummary);
 }
 

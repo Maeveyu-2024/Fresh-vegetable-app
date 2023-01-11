@@ -1,6 +1,7 @@
 package cn.woniu.entity.order;
 
 
+import cn.woniu.entity.manage.Goods;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -52,6 +53,8 @@ public class OrderClient {
     //下单时间区间
     @TableField(exist = false)
     private List<LocalDate> selectTime;
+    @TableField(exist = false)
+    private List<Goods> goodsList;
 
 
 }

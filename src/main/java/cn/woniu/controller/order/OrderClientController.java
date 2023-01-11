@@ -2,6 +2,7 @@ package cn.woniu.controller.order;
 
 
 import cn.woniu.entity.order.OrderClient;
+import cn.woniu.entity.order.OrderSummary;
 import cn.woniu.service.order.OrderClientService;
 import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,22 @@ public class OrderClientController {
     }
 
     @RequestMapping("/delete")
-    public ResponseResult<?> deleteOrderByOrderId(String id){
+    public ResponseResult<?> deleteOrderByOrderId(String id) {
         return orderClientService.deleteOrderByOrderId(id);
     }
 
     @RequestMapping("/updateAddress")
-    public ResponseResult<?> updateOrderAddress(String id, String address){
+    public ResponseResult<?> updateOrderAddress(String id, String address) {
         return orderClientService.updateOrderAddress(id, address);
     }
 
     @PostMapping("/updateOrder")
-    public ResponseResult<?> updateOrderItem(@RequestBody OrderClient orderClient){
+    public ResponseResult<?> updateOrderItem(@RequestBody OrderClient orderClient) {
         return orderClientService.updateOrderItem(orderClient);
+    }
+
+    @PostMapping("/purchase")
+    public ResponseResult<?> check(@RequestBody OrderSummary orderSummary) {
+        return orderClientService.check(orderSummary);
     }
 }

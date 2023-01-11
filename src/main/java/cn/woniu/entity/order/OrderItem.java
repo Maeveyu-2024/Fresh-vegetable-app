@@ -40,6 +40,9 @@ public class OrderItem {
     //商品单价
     @TableField(exist = false)
     private Double goodsPrice;
+    //商品单价
+    @TableField(exist = false)
+    private String unitName;
 
 }
 
