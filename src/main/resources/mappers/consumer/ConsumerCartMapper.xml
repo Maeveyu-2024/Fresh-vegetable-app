@@ -10,5 +10,20 @@
         <result property="goodPrice" column="good_price" jdbcType="NUMERIC"/>
         <result property="goodType" column="good_type" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <select id="queryAllCart" resultType="cn.woniu.entity.consumer.ConsumerCart">
+        SELECT
+        c.id,
+	    c.good_id,
+	    g.NAME,
+	    g.pic,
+	    c.good_price,
+	    c.good_num,
+	    u.`name` AS unit_name
+        FROM
+	    `consumer_cart` c
+	    LEFT JOIN goods g ON c.good_id = g.id
+	    LEFT JOIN measuring_unit u ON g.unit_id = u.id
+	    LEFT JOIN consumer ON consumer.id = c.user_id
+	    WHERE consumer.user_name = #{userName}
+    </select>
 </mapper>

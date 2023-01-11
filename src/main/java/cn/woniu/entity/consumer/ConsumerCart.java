@@ -1,6 +1,7 @@
 package cn.woniu.entity.consumer;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,11 @@ public class ConsumerCart {
     private Double goodPrice;
 
     private String goodType;
-
-
+    @TableField(exist = false)
+    private String name;
+    @TableField(exist = false)
+    private String pic;
+    @TableField(exist = false)
+    private String unitName;
 }
 
