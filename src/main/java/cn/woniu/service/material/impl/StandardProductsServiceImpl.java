@@ -1,5 +1,6 @@
 package cn.woniu.service.material.impl;
 
+import cn.woniu.dao.finance.FinancePayDao;
 import cn.woniu.dao.manage.GoodsDao;
 import cn.woniu.dao.manage.MeasuringUnitDao;
 import cn.woniu.dao.manage.SupplierDao;
@@ -53,6 +54,9 @@ public class StandardProductsServiceImpl implements StandardProductsService {
     @Autowired(required = false)
     private ProductReportDao productReportDao;
 
+    @Autowired(required = false)
+    private FinancePayDao financePayDao;
+
 
 
 
@@ -90,7 +94,7 @@ public class StandardProductsServiceImpl implements StandardProductsService {
             s.setTime(date);
             s.setDeleted(0);
             int count = standardProductsDao.insert(s);
-
+            financePayDao.addFinancePay(s);
 
 
         if(count==1){
