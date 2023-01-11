@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.time.LocalDate;
+import java.util.List;
+
 
 /**
  * (OrderClient)表服务实现类
@@ -103,6 +106,19 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Override
     public ResponseResult<?> updateOrderStatus(String id, Integer status) {
         return null;
+    }
+
+    @Override
+    public ResponseResult<?> queryAllByChart(String name, List<LocalDate> inductionTime) {
+        List<OrderClient> orderClients = orderClientDao.queryAllByChart(name, inductionTime);
+
+        return new ResponseResult<>(200,"查询成功",orderClients);
+    }
+
+    @Override
+    public ResponseResult<?> queryAllOrderClientName() {
+        List<OrderClient> orderClients = orderClientDao.queryAllOrderClientName();
+        return new ResponseResult<>(200,"查询成功",orderClients);
     }
 }
 
