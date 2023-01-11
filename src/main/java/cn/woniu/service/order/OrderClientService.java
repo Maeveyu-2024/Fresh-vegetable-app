@@ -24,6 +24,7 @@ public interface OrderClientService {
 
     /**
      * 删除订单表,根据id
+     *
      * @param id
      * @return
      */
@@ -40,6 +41,7 @@ public interface OrderClientService {
 
     /**
      * 修改订单项
+     *
      * @param orderClient
      * @return
      */
@@ -47,9 +49,27 @@ public interface OrderClientService {
 
     /**
      * 修改订单状态, 生成采购计划
+     *
      * @param orderSummary
      * @return
      */
     ResponseResult<?> check(OrderSummary orderSummary);
+
+    /**
+     * 添加订单
+     *
+     * @param orderClient
+     * @return
+     */
+    ResponseResult<?> addOrder(OrderClient orderClient);
+
+    /**
+     * 修改订单状态
+     *
+     * @param id     订单id
+     * @param status 订单状态
+     * @return
+     */
+    ResponseResult<?> updateOrderStatus(String id, Integer status);
 }
 

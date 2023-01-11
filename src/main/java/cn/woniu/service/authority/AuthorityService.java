@@ -16,5 +16,6 @@ public interface AuthorityService {
     ResponseResult<?> queryAllAuthority();
     ResponseResult<?> selectAllAuthority();
     ResponseResult<?> updateAuthByUid(List<Integer> ids, Integer id);
+    ResponseResult<?> selectAuthCodeByAids(List<Integer> ids);
 }
 

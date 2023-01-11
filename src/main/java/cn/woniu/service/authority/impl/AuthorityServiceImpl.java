@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -37,7 +38,7 @@ public class AuthorityServiceImpl implements AuthorityService {
         parentAuth.forEach(e->{
             List<Authority> children = new ArrayList<>();
             authorities.forEach(child ->{
-                if(child.getParentId() == e.getId()){
+                if(e.getId().equals(child.getParentId())){
                     children.add(child);
                 }
                 e.setChildren(children);
@@ -103,6 +104,13 @@ public class AuthorityServiceImpl implements AuthorityService {
         authorityDao.deleteAllByUid(id);
         int count = authorityDao.insertAuthByIdsAndUid(ids, id);
         return new ResponseResult<>().ok(count);
+    }
+
+    @Override
+    public ResponseResult<?> selectAuthCodeByAids(List<Integer> ids) {
+        List<String> authCodeByAids = authorityDao.selectAuthCodeByAids(ids);
+        List<String> auths = authCodeByAids.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        return new ResponseResult<>().ok(auths);
     }
 }
 

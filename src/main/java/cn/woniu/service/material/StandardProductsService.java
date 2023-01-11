@@ -15,8 +15,13 @@ public interface StandardProductsService {
     ResponseResult<?> querywarehouse();
     ResponseResult<?> add(StandardProducts s);
     ResponseResult<?> delete(StandardProducts s);
-    ResponseResult<?> query(String id,String goodsName,String warehouse);
+    ResponseResult<?> query(String id,String goodsName,String warehouse,Integer pageSize,Integer pageNum);
     ResponseResult<?> update1(StandardProducts s);
+    ResponseResult<?> update2(StandardProducts s);
+    ResponseResult<?> query1(String id,String goodsName,Integer pageSize,Integer pageNum);
+    ResponseResult<?> query2(String id,String goodsName,Integer pageSize,Integer pageNum);
+
+
 
 
 

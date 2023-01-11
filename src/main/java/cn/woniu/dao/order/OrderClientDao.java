@@ -80,4 +80,10 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      */
     Integer updateGoodsPurStatus(String id);
 
+    /**
+     * 批量添加订单项
+     * @return
+     */
+    Integer insertOrderItemList(List<OrderItem> orderItemList);
+
 }

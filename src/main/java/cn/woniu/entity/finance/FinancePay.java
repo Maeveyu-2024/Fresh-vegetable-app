@@ -1,6 +1,7 @@
 package cn.woniu.entity.finance;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,20 @@ public class FinancePay {
     private String status;
     //生成时间
     private LocalDate createTime;
+    //成品入库id
+    @TableField(exist = false)
+    private String standproId;
+    //供应商名称
+    @TableField(exist = false)
+    private String company;
+    //入库单编号
+    @TableField(exist = false)
+    private String no;
+    //分页用
+    @TableField(exist = false)
+    private Integer pageNo;
+    @TableField(exist = false)
+    private Integer pageSize;
 
 
 }
