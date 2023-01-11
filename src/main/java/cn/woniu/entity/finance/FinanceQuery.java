@@ -32,6 +32,9 @@ public class FinanceQuery {
     private Double receivable;
     //收款时间
     private LocalDate recTime;
+    //客户姓名
+    @TableField(exist = false)
+    private String clientName;
     //订单表id
     @TableField(exist = false)
     private String orderId;
@@ -42,6 +45,25 @@ public class FinanceQuery {
     // 0:未审核,1:已审核,2:退货中,3:完成,4:删除
     @TableField(exist = false)
     private Integer ocStatus;
+    //分页用
+    @TableField(exist = false)
+    private Integer pageNo;
+    @TableField(exist = false)
+    private Integer pageSize;
+    //订单详情用
+//    商品名称
+    @TableField(exist = false)
+    private String goodsName;
+    //商品售价
+    @TableField(exist = false)
+    private Double salePrice;
+    //商品数量
+    @TableField(exist = false)
+    private Double num;
+    //单位
+    @TableField(exist = false)
+    private String unitName;
+
 
 
 }

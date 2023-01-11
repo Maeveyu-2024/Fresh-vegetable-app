@@ -35,6 +35,17 @@ public class FinancePay {
     //成品入库id
     @TableField(exist = false)
     private String standproId;
+    //供应商名称
+    @TableField(exist = false)
+    private String company;
+    //入库单编号
+    @TableField(exist = false)
+    private String no;
+    //分页用
+    @TableField(exist = false)
+    private Integer pageNo;
+    @TableField(exist = false)
+    private Integer pageSize;
 
 
 }

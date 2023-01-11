@@ -10,5 +10,37 @@
         <result property="status" column="status" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <select id="queryFinancePay" resultType="cn.woniu.entity.finance.FinancePay">
+        SELECT
+        	s.company,
+        	sp.no,
+        	fp.payable,
+        	fp.create_time,
+        	fp.type,
+        	fp.status,
+        	fp.id
+        FROM
+        	finance_pay fp
+        	LEFT JOIN standard_products sp ON fp.standpro_id = sp.id
+        	LEFT JOIN supplier s ON sp.supplier_id = s.id
+        <where>
+            fp.status = 0
+            <if test="company != null and company != '' ">
+                and company like concat("%",#{company},"%")
+            </if>
+            <if test="payable != null ">
+                and payable &gt;= #{payable}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateFinancePayStatus">
+		update finance_pay set status = 1 where id = #{id}
+	</update>
+
+    <insert id="addFinancePay">
+        insert into finance_pay(payable,create_time,standpro_id)
+        VALUES(#{price},#{time},#{id})
+    </insert>
 
 </mapper>

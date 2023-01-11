@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,6 +76,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ResponseResult<?> addGoods(Goods goods) {
+        goods.setUpdateTime(LocalDate.now());
         int count = goodsDao.insert(goods);
         return new ResponseResult<>().ok(count);
     }

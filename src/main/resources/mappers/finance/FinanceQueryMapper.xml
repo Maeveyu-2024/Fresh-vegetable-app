@@ -13,10 +13,10 @@
 
     <select id="queryFinance" resultType="cn.woniu.entity.finance.FinanceQuery">
         SELECT
-        	fq.id,
+		distinct fq.id,
         	fq.STATUS,
         	fq.receivable,
-        	oc.NO,
+        	oc.no,
         	oc.STATUS as ocStatus,
         	c.client_name as clientName
         FROM
@@ -25,7 +25,7 @@
         	LEFT JOIN client c ON oc.client_id = c.id
         	LEFT JOIN order_item oi ON oi.order_id = oc.id
         	<where>
-                oc.STATUS =3
+                oc.status =3 and fq.status = 0
                 <if test="clientName != null and clientName != '' ">
                     and c.client_name like concat("%",#{clientName},"%")
                 </if>
@@ -34,5 +34,32 @@
                 </if>
             </where>
     </select>
+
+    <select id="queryOrder" resultType="cn.woniu.entity.finance.FinanceQuery">
+    SELECT
+    	 fq.id,
+    	fq.receivable,
+    	oc.NO,
+    	c.client_name,
+    	g.NAME as goodsName,
+    	g.sale_price,
+    	oi.num,
+    	mu.NAME as unitName
+    FROM
+    	finance_query fq
+    	LEFT JOIN order_client oc ON fq.order_id = oc.id
+    	LEFT JOIN client c ON oc.client_id = c.id
+    	LEFT JOIN order_item oi ON oi.order_id = oc.id
+    	LEFT JOIN goods g ON oi.goods_id = g.id
+    	LEFT JOIN measuring_unit mu ON mu.id = g.unit_id
+    	where fq.id = #{id}
+    </select>
+	<insert id="addFinance">
+		insert into finance_query(receivable,order_id) values (#{totalMoney},#{id})
+	</insert>
+
+	<update id="updateFinance">
+		update finance_query set status = 1,rec_time=#{payTime} where id = #{id}
+	</update>
 
 </mapper>
