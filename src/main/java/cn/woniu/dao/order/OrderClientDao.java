@@ -1,6 +1,7 @@
 package cn.woniu.dao.order;
 
 
+import cn.woniu.entity.manage.MeasuringUnit;
 import cn.woniu.entity.order.OrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.order.OrderClient;
@@ -85,5 +86,12 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      * @return
      */
     Integer insertOrderItemList(List<OrderItem> orderItemList);
+
+    /**
+     * 通过名字查询计量单位
+     * @param name
+     * @return
+     */
+    MeasuringUnit selectUnitByName(String name);
 
 }

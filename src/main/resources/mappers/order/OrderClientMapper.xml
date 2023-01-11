@@ -73,7 +73,7 @@
         SELECT
         oc.id,
         oc.no,
-        oc.client_id,
+        c.client_id,
         oc.order_time,
         oc.address,
         oc.total_money,
@@ -110,7 +110,7 @@
             AND oc.no like concat('%',#{oc.no},'%')
         </if>
         <if test="oc.clientName != null and oc.clientName != ''">
-            AND c.client_name like concat('%',#{oc.clientName},'%')
+            AND c.client_id = #{oc.clientName}
         </if>
         <if test="oc.status != null">
             AND oc.status = #{oc.status}
@@ -141,6 +141,10 @@
         <if test="selectTime != null and selectTime.size > 0">
             AND oc.pay_time BETWEEN #{selectTime[0]} AND #{selectTime[1]}
         </if>
+    </select>
+    <select id="selectUnitByName" resultType="cn.woniu.entity.manage.MeasuringUnit">
+        SELECT id, name, status, weight, del
+        FROM measuring_unit WHERE name = #{name}
     </select>
 
 </mapper>
