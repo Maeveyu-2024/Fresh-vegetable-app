@@ -53,8 +53,8 @@ public class OrderClientController {
     }
 
     @PostMapping("/purchase")
-    public ResponseResult<?> check(@RequestBody OrderSummary orderSummary) {
-        return orderClientService.check(orderSummary);
+    public ResponseResult<?> check(@RequestBody OrderSummary orderSummary, Integer purStatus, Double saleNum) {
+        return orderClientService.check(orderSummary, purStatus, saleNum);
     }
     /**
      * 查询信息给图表

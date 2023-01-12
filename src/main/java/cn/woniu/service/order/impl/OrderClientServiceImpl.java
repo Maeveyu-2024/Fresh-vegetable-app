@@ -1,9 +1,12 @@
 package cn.woniu.service.order.impl;
 
+import cn.woniu.dao.finance.FinanceQueryDao;
 import cn.woniu.dao.manage.MeasuringUnitDao;
+import cn.woniu.dao.material.ProductSendDao;
 import cn.woniu.dao.order.OrderClientDao;
 import cn.woniu.dao.order.OrderItemDao;
 import cn.woniu.dao.order.OrderSummaryDao;
+import cn.woniu.entity.finance.FinanceQuery;
 import cn.woniu.entity.manage.Client;
 import cn.woniu.entity.manage.MeasuringUnit;
 import cn.woniu.entity.order.OrderClient;
@@ -12,6 +15,7 @@ import cn.woniu.entity.order.OrderSummary;
 import cn.woniu.service.order.OrderClientService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -40,7 +44,9 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Autowired(required = false)
     private OrderSummaryDao orderSummaryDao;
     @Autowired(required = false)
-    private MeasuringUnitDao measuringUnitDao;
+    private FinanceQueryDao financeQueryDao;
+    @Autowired(required = false)
+    private ProductSendDao productSendDao;
 
     @Override
     public ResponseResult<?> queryOrder(OrderClient orderClient, Integer pageNum, Integer pageSize) {
@@ -82,10 +88,14 @@ public class OrderClientServiceImpl implements OrderClientService {
 
     @Override
     @Transactional
-    public ResponseResult<?> check(OrderSummary orderSummary) {
+    public ResponseResult<?> check(OrderSummary orderSummary, Integer purStatus, Double saleNum) {
         orderClientDao.updateOrderStatus(orderSummary.getOrderId());
-        orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
-        orderSummaryDao.insert(orderSummary);
+        productSendDao.minusNum(orderSummary.getGoodsName(), saleNum);
+        productSendDao.insertSales(orderSummary.getGoodsName(), saleNum);
+        if(orderSummary.getDemand() > 0 && purStatus == 0){
+            orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
+            orderSummaryDao.insert(orderSummary);
+        }
         return new ResponseResult<>().ok(null);
     }
 
@@ -113,13 +123,43 @@ public class OrderClientServiceImpl implements OrderClientService {
     public ResponseResult<?> queryAllByChart(String name, List<LocalDate> inductionTime) {
         List<OrderClient> orderClients = orderClientDao.queryAllByChart(name, inductionTime);
 
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
     }
 
     @Override
     public ResponseResult<?> queryAllOrderClientName() {
         List<OrderClient> orderClients = orderClientDao.queryAllOrderClientName();
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
+    }
+
+    @Override
+    public ResponseResult<?> orderStatusUpdate(String orderId, Integer nextStatus) {
+        //确认订单
+        if (nextStatus == 3) {
+            UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
+            wrapper.eq("id", orderId).set("status", nextStatus);
+            int result = orderClientDao.update(new OrderClient(), wrapper);
+            if (result != 0) {
+                return new ResponseResult<>().ok(result);
+            } else {
+                return new ResponseResult<>(500, "失败");
+            }
+            //付款
+        } else if (nextStatus == 1) {
+            UpdateWrapper<OrderClient> updateWrapper = new UpdateWrapper<OrderClient>();
+            updateWrapper.eq("id", orderId).set("status", 5);
+            orderClientDao.update(new OrderClient(), updateWrapper);
+            UpdateWrapper<FinanceQuery> wrapper = new UpdateWrapper<FinanceQuery>();
+            wrapper.eq("order_id", orderId).set("status", nextStatus);
+            int result = financeQueryDao.update(new FinanceQuery(), wrapper);
+            if (result != 0) {
+                return new ResponseResult<>().ok(result);
+            } else {
+                return new ResponseResult<>(500, "失败");
+            }
+        } else {
+            return new ResponseResult<>(500, "失败");
+        }
     }
 }
 

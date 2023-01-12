@@ -108,4 +108,6 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      */
     List<OrderClient> queryAllOrderClientName();
 
+    Integer updateGoodsLimit();
+
 }

@@ -4,9 +4,12 @@ package cn.woniu.service.order;
 import cn.woniu.entity.order.OrderClient;
 import cn.woniu.entity.order.OrderItem;
 import cn.woniu.utils.ResponseResult;
+
 import java.time.LocalDate;
 import java.util.List;
+
 import cn.woniu.entity.order.OrderSummary;
+
 /**
  * (OrderClient)表服务接口
  *
@@ -25,6 +28,7 @@ public interface OrderClientService {
 
     /**
      * 删除订单表,根据id
+     *
      * @param id
      * @return
      */
@@ -41,17 +45,19 @@ public interface OrderClientService {
 
     /**
      * 修改订单项
+     *
      * @param orderClient
      * @return
      */
     ResponseResult<?> updateOrderItem(OrderClient orderClient);
+
     /**
      * 修改订单状态, 生成采购计划
      *
      * @param orderSummary
      * @return
      */
-    ResponseResult<?> check(OrderSummary orderSummary);
+    ResponseResult<?> check(OrderSummary orderSummary, Integer purStatus, Double saleNum);
 
     /**
      * 添加订单
@@ -69,16 +75,21 @@ public interface OrderClientService {
      * @return
      */
     ResponseResult<?> updateOrderStatus(String id, Integer status);
+
     /**
      * 查询信息给图表
+     *
      * @param name
      * @param inductionTime
      * @return
      */
     ResponseResult<?> queryAllByChart(String name, List<LocalDate> inductionTime);
+
     /**
      * 刷新图表
      */
     ResponseResult<?> queryAllOrderClientName();
+
+    ResponseResult<?> orderStatusUpdate(String orderId, Integer nextStatus);
 }
 

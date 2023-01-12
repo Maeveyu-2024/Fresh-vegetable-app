@@ -17,5 +17,7 @@ public interface ProductReportService {
     ResponseResult<?> queryReportByName(String name);
     ResponseResult<?> queryReportAllInfo();
     ResponseResult<?> queryDataForChart();//饼图数据查询
+    ResponseResult<?> queryDataForGoodsSales();//商品销量数据
+    ResponseResult<?> queryDataForGoodsInventory();//成品库存图表数据
 }
 
