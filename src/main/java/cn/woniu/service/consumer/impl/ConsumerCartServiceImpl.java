@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -31,10 +32,12 @@ public class ConsumerCartServiceImpl implements ConsumerCartService {
     private ConsumerDao consumerDao;
     @Autowired(required = false)
     private GoodsTypeDao goodsTypeDao;
-
+    @Resource
+    private CartRedisRepository cartRedisRepository;
 
     @Override
     public ResponseResult CartAdd(ConsumerCart cart) {
+        String userName = cart.getUserId();
         Integer result = 0;
         //获取用户ID
         QueryWrapper<Consumer> consumerWrapper = new QueryWrapper<Consumer>();
@@ -58,21 +61,34 @@ public class ConsumerCartServiceImpl implements ConsumerCartService {
         } else {
             result = consumerCartDao.insert(cart);
         }
+        List<ConsumerCart> consumerCarts = consumerCartDao.queryAllCart(userName);
+        cartRedisRepository.saveAll(consumerCarts);
         return new ResponseResult().ok(result);
     }
 
     @Override
     public ResponseResult queryCartAll(String userName) {
-        return new ResponseResult().ok(consumerCartDao.queryAllCart(userName));
+        QueryWrapper<Consumer> wrapper = new QueryWrapper<Consumer>();
+        wrapper.eq("user_name", userName);
+        Consumer consumer = consumerDao.selectOne(wrapper);
+        Iterable<ConsumerCart> carts = cartRedisRepository.findByUserId(consumer.getId());
+        if (carts.iterator().hasNext()) {
+            return new ResponseResult<>().ok(carts);
+        }
+        List<ConsumerCart> consumerCarts = consumerCartDao.queryAllCart(userName);
+        cartRedisRepository.saveAll(consumerCarts);
+        return new ResponseResult<>().ok(consumerCarts);
     }
 
     @Override
     public ResponseResult CartDel(String id) {
+        cartRedisRepository.deleteById(id);
         return new ResponseResult().ok(consumerCartDao.deleteById(id));
     }
 
     @Override
     public ResponseResult GoodsDelInBatchs(List<String> ids) {
+        cartRedisRepository.deleteAllById(ids);
         int row = consumerCartDao.deleteBatchIds(ids);
         if (row != 0) {
             return new ResponseResult().ok(row);
