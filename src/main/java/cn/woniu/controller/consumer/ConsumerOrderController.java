@@ -108,12 +108,12 @@ public class ConsumerOrderController {
     /**
      * 修改订单状态
      *
-     * @param OrderId
+     * @param orderId
      * @param nextStatus
      * @return
      */
     @RequestMapping("updateOrderStatus")
-    public ResponseResult<?> OrderStatusUpdate(String OrderId, Integer nextStatus) {
-        return orderClientService.orderStatusUpdate(OrderId, nextStatus);
+    public ResponseResult<?> OrderStatusUpdate(String orderId, Integer nextStatus) {
+        return orderClientService.orderStatusUpdate(orderId, nextStatus);
     }
 }

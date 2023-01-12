@@ -81,6 +81,6 @@ public interface OrderClientService {
      */
     ResponseResult<?> queryAllOrderClientName();
 
-    ResponseResult<?> orderStatusUpdate(String OrderId, Integer nextStatus);
+    ResponseResult<?> orderStatusUpdate(String orderId, Integer nextStatus);
 }
 

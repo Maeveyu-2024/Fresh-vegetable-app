@@ -1,9 +1,11 @@
 package cn.woniu.service.order.impl;
 
+import cn.woniu.dao.finance.FinanceQueryDao;
 import cn.woniu.dao.manage.MeasuringUnitDao;
 import cn.woniu.dao.order.OrderClientDao;
 import cn.woniu.dao.order.OrderItemDao;
 import cn.woniu.dao.order.OrderSummaryDao;
+import cn.woniu.entity.finance.FinanceQuery;
 import cn.woniu.entity.manage.Client;
 import cn.woniu.entity.manage.MeasuringUnit;
 import cn.woniu.entity.order.OrderClient;
@@ -40,6 +42,8 @@ public class OrderClientServiceImpl implements OrderClientService {
     private OrderClientDao orderClientDao;
     @Autowired(required = false)
     private OrderSummaryDao orderSummaryDao;
+    @Autowired(required = false)
+    private FinanceQueryDao financeQueryDao;
     @Autowired(required = false)
     private MeasuringUnitDao measuringUnitDao;
 
@@ -124,20 +128,21 @@ public class OrderClientServiceImpl implements OrderClientService {
     }
 
     @Override
-    public ResponseResult<?> orderStatusUpdate(String OrderId, Integer nextStatus) {
+    public ResponseResult<?> orderStatusUpdate(String orderId, Integer nextStatus) {
         if (nextStatus == 3) {
             UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
-            wrapper.eq("id", OrderId).set("status", nextStatus);
+            wrapper.eq("id", orderId).set("status", nextStatus);
             int result = orderClientDao.update(new OrderClient(), wrapper);
             if (result != 0) {
                 return new ResponseResult<>().ok(result);
             } else {
                 return new ResponseResult<>(500, "失败");
             }
+            //付款后
         } else if (nextStatus == 1) {
-            UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
-            wrapper.eq("id", OrderId).set("status", nextStatus);
-            int result = orderClientDao.update(new OrderClient(), wrapper);
+            UpdateWrapper<FinanceQuery> wrapper = new UpdateWrapper<FinanceQuery>();
+            wrapper.eq("order_id", orderId).set("status", nextStatus);
+            int result = financeQueryDao.update(new FinanceQuery(), wrapper);
             if (result != 0) {
                 return new ResponseResult<>().ok(result);
             } else {
