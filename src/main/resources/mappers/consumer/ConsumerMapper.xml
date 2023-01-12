@@ -29,6 +29,7 @@
             <if test="typeId!=null and typeId !=''">
                 and g.goods_type_id = #{typeId}
             </if>
+            AND g.status = 1
         </where>
     </select>
 </mapper>

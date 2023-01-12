@@ -132,6 +132,7 @@ public class OrderClientServiceImpl implements OrderClientService {
 
     @Override
     public ResponseResult<?> orderStatusUpdate(String orderId, Integer nextStatus) {
+        //确认订单
         if (nextStatus == 3) {
             UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
             wrapper.eq("id", orderId).set("status", nextStatus);
@@ -141,8 +142,11 @@ public class OrderClientServiceImpl implements OrderClientService {
             } else {
                 return new ResponseResult<>(500, "失败");
             }
-            //付款后
+            //付款
         } else if (nextStatus == 1) {
+            UpdateWrapper<OrderClient> updateWrapper = new UpdateWrapper<OrderClient>();
+            updateWrapper.eq("id", orderId).set("status", 5);
+            orderClientDao.update(new OrderClient(), updateWrapper);
             UpdateWrapper<FinanceQuery> wrapper = new UpdateWrapper<FinanceQuery>();
             wrapper.eq("order_id", orderId).set("status", nextStatus);
             int result = financeQueryDao.update(new FinanceQuery(), wrapper);
