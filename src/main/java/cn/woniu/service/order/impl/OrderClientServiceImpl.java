@@ -82,10 +82,13 @@ public class OrderClientServiceImpl implements OrderClientService {
 
     @Override
     @Transactional
-    public ResponseResult<?> check(OrderSummary orderSummary) {
+    public ResponseResult<?> check(OrderSummary orderSummary, Integer purStatus, Double saleNum) {
         orderClientDao.updateOrderStatus(orderSummary.getOrderId());
-        orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
-        orderSummaryDao.insert(orderSummary);
+        if(orderSummary.getDemand() > 0 && purStatus == 0){
+            orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
+            orderSummaryDao.insert(orderSummary);
+        }
+
         return new ResponseResult<>().ok(null);
     }
 
@@ -113,13 +116,13 @@ public class OrderClientServiceImpl implements OrderClientService {
     public ResponseResult<?> queryAllByChart(String name, List<LocalDate> inductionTime) {
         List<OrderClient> orderClients = orderClientDao.queryAllByChart(name, inductionTime);
 
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
     }
 
     @Override
     public ResponseResult<?> queryAllOrderClientName() {
         List<OrderClient> orderClients = orderClientDao.queryAllOrderClientName();
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
     }
 }
 
