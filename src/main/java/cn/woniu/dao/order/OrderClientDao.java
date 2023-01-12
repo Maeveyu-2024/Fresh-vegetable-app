@@ -57,7 +57,7 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      *
      * @return
      */
-    Integer updateOrderItem(List<OrderItem> orderItemList);
+    Integer updateOrderItem(@Param("orderItemList") List<OrderItem> orderItemList, String id);
 
     /**
      * 修改订单状态
