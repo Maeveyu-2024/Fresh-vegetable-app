@@ -76,7 +76,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Transactional
     public ResponseResult<?> updateOrderItem(OrderClient orderClient) {
         orderClientDao.updateOrderMoney(orderClient.getId(), orderClient.getTotalMoney());
-        Integer count = orderClientDao.updateOrderItem(orderClient.getOrderItemList());
+        Integer count = orderClientDao.updateOrderItem(orderClient.getOrderItemList(), orderClient.getId());
         return new ResponseResult<>().ok(count);
     }
 
