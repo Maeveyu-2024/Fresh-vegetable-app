@@ -42,5 +42,18 @@ public class ProductReportController {
     ResponseResult<?> queryDataForChart(){
        return productReportService.queryDataForChart();
     }
-
+    /**
+     * 商品销量数据
+     */
+    @RequestMapping("/sale")
+    ResponseResult<?> queryDataForGoodsSales(){
+    return productReportService.queryDataForGoodsSales();
+    }
+    /**
+     * 成品库存图表数据
+     */
+    @RequestMapping("/inventory")
+    ResponseResult<?> queryDataForGoodsInventory(){
+        return productReportService.queryDataForGoodsInventory();
+    }
 }

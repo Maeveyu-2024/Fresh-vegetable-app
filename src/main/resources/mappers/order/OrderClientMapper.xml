@@ -68,6 +68,11 @@
     <update id="updateGoodsPurStatus">
         UPDATE goods SET pur_status = 1 WHERE id = #{id}
     </update>
+    <update id="updateGoodsLimit">
+        UPDATE product_send ps, goods g
+        SET ps.limit = ps.num * 4, g.stock_lower_limit = ps.limit, ps.num = 0
+        WHERE ps.goods_name = g.name
+    </update>
 
     <select id="queryAll" resultMap="OrderClientMap">
         SELECT

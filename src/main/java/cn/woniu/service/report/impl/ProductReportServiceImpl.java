@@ -44,5 +44,17 @@ public class ProductReportServiceImpl implements ProductReportService {
         List<PayReport> payReports = payReportDao.queryDataForChart();
         return new ResponseResult<>(200,"查询成功",payReports);
     }
+
+    @Override
+    public ResponseResult<?> queryDataForGoodsSales() {
+        List<PayReport> payReports = payReportDao.queryDataForGoodsSales();
+        return new ResponseResult<>(200,"查询成功",payReports);
+    }
+
+    @Override
+    public ResponseResult<?> queryDataForGoodsInventory() {
+        List<PayReport> payReports = payReportDao.queryDataForGoodsInventory();
+        return new ResponseResult<>(200,"查询成功",payReports);
+    }
 }
 
