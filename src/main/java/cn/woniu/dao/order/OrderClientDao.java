@@ -5,6 +5,7 @@ import cn.woniu.entity.manage.MeasuringUnit;
 import cn.woniu.entity.order.OrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.order.OrderClient;
+import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +24,7 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      * @param orderClient 查询条件
      * @return
      */
-    List<OrderClient> queryAll(OrderClient orderClient);
+    List<OrderClient> queryAll(@Param("oc") OrderClient orderClient);
 
     /**
      * 逻辑删除订单及关联的表
