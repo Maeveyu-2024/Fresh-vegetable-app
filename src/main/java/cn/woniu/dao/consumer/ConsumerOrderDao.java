@@ -1,8 +1,13 @@
 package cn.woniu.dao.consumer;
 
 
+import cn.woniu.entity.order.OrderClient;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.consumer.ConsumerOrder;
+import org.apache.ibatis.annotations.Param;
+
+
+import java.util.List;
 
 /**
  * (ConsumerOrder)表数据库访问层
@@ -12,5 +17,12 @@ import cn.woniu.entity.consumer.ConsumerOrder;
  */
 public interface ConsumerOrderDao extends BaseMapper<ConsumerOrder> {
 
+    /**
+     * 查询所有,根据查询条件
+     *
+     * @param orderClient 查询条件
+     * @return
+     */
+    List<OrderClient> queryOrderAll(@Param("oc") OrderClient orderClient);
 
 }
