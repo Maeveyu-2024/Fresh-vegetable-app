@@ -12,6 +12,7 @@ import cn.woniu.entity.order.OrderSummary;
 import cn.woniu.service.order.OrderClientService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -113,13 +114,38 @@ public class OrderClientServiceImpl implements OrderClientService {
     public ResponseResult<?> queryAllByChart(String name, List<LocalDate> inductionTime) {
         List<OrderClient> orderClients = orderClientDao.queryAllByChart(name, inductionTime);
 
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
     }
 
     @Override
     public ResponseResult<?> queryAllOrderClientName() {
         List<OrderClient> orderClients = orderClientDao.queryAllOrderClientName();
-        return new ResponseResult<>(200,"查询成功",orderClients);
+        return new ResponseResult<>(200, "查询成功", orderClients);
+    }
+
+    @Override
+    public ResponseResult<?> orderStatusUpdate(String OrderId, Integer nextStatus) {
+        if (nextStatus == 3) {
+            UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
+            wrapper.eq("id", OrderId).set("status", nextStatus);
+            int result = orderClientDao.update(new OrderClient(), wrapper);
+            if (result != 0) {
+                return new ResponseResult<>().ok(result);
+            } else {
+                return new ResponseResult<>(500, "失败");
+            }
+        } else if (nextStatus == 1) {
+            UpdateWrapper<OrderClient> wrapper = new UpdateWrapper<OrderClient>();
+            wrapper.eq("id", OrderId).set("status", nextStatus);
+            int result = orderClientDao.update(new OrderClient(), wrapper);
+            if (result != 0) {
+                return new ResponseResult<>().ok(result);
+            } else {
+                return new ResponseResult<>(500, "失败");
+            }
+        } else {
+            return new ResponseResult<>(500, "失败");
+        }
     }
 }
 

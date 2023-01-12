@@ -80,5 +80,7 @@ public interface OrderClientService {
      * 刷新图表
      */
     ResponseResult<?> queryAllOrderClientName();
+
+    ResponseResult<?> orderStatusUpdate(String OrderId, Integer nextStatus);
 }
 

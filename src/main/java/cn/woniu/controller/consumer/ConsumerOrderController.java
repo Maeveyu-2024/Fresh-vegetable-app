@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -99,7 +100,20 @@ public class ConsumerOrderController {
      * @return
      */
     @RequestMapping("updateFinance")
-    public ResponseResult<?> updateFinance(LocalDate payTime, String id) {
-        return financeQueryService.updateFinance(payTime, id);
+    public ResponseResult<?> updateFinance(String payTime, String id) {
+        LocalDate date = LocalDate.parse(payTime.substring(0, payTime.indexOf('T')), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return financeQueryService.updateFinance(date, id);
+    }
+
+    /**
+     * 修改订单状态
+     *
+     * @param OrderId
+     * @param nextStatus
+     * @return
+     */
+    @RequestMapping("updateOrderStatus")
+    public ResponseResult<?> OrderStatusUpdate(String OrderId, Integer nextStatus) {
+        return orderClientService.orderStatusUpdate(OrderId, nextStatus);
     }
 }
