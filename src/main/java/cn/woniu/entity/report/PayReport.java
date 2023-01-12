@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PayReport {
-    //应付账款值
+    //图表类的值
     private Float value;
-    //应付账款名
+    //图表类的名
     private String name;
 
 
