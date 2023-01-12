@@ -6,6 +6,7 @@ import cn.woniu.dao.manage.GoodsTypeDao;
 import cn.woniu.entity.consumer.Consumer;
 import cn.woniu.entity.consumer.ConsumerCart;
 import cn.woniu.entity.manage.GoodsType;
+import cn.woniu.redis.CartRedisRepository;
 import cn.woniu.service.consumer.ConsumerCartService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -68,6 +69,16 @@ public class ConsumerCartServiceImpl implements ConsumerCartService {
     @Override
     public ResponseResult CartDel(String id) {
         return new ResponseResult().ok(consumerCartDao.deleteById(id));
+    }
+
+    @Override
+    public ResponseResult GoodsDelInBatchs(List<String> ids) {
+        int row = consumerCartDao.deleteBatchIds(ids);
+        if (row != 0) {
+            return new ResponseResult().ok(row);
+        } else {
+            return new ResponseResult(500, "失败", 0);
+        }
     }
 }
 

@@ -10,5 +10,10 @@
         <result property="deleted" column="deleted" jdbcType="VARCHAR"/>
         <result property="time" column="time" jdbcType="TIMESTAMP"/>
     </resultMap>
-
+    <update id="insertSales">
+        update product_send set num=num+#{num} where goods_name=#{goodsName}
+    </update>
+    <update id="minusNum">
+        update product_report set pro_num=pro_num-#{num} where pro_name=#{goodsName}
+    </update>
 </mapper>
