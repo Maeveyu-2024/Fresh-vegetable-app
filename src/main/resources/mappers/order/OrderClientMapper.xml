@@ -110,7 +110,7 @@
         LEFT JOIN client c ON oc.client_id = c.id
         LEFT JOIN measuring_unit mu ON oi.unit = mu.id
         LEFT JOIN product_report pr ON pr.pro_name = g.name
-        WHERE oc.status IN (0,1,2,3)
+        WHERE oc.status IN (0,1,2,3,5)
         <if test="oc.no != null and oc.no != ''">
             AND oc.no like concat('%',#{oc.no},'%')
         </if>
