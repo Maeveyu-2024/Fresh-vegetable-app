@@ -1,9 +1,18 @@
 package cn.woniu.service.consumer.impl;
 
 import cn.woniu.dao.consumer.ConsumerCartDao;
+import cn.woniu.dao.consumer.ConsumerDao;
+import cn.woniu.dao.manage.GoodsTypeDao;
+import cn.woniu.entity.consumer.Consumer;
+import cn.woniu.entity.consumer.ConsumerCart;
+import cn.woniu.entity.manage.GoodsType;
 import cn.woniu.service.consumer.ConsumerCartService;
+import cn.woniu.utils.ResponseResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 /**
@@ -17,5 +26,48 @@ public class ConsumerCartServiceImpl implements ConsumerCartService {
 
     @Autowired(required = false)
     private ConsumerCartDao consumerCartDao;
+    @Autowired(required = false)
+    private ConsumerDao consumerDao;
+    @Autowired(required = false)
+    private GoodsTypeDao goodsTypeDao;
+
+
+    @Override
+    public ResponseResult CartAdd(ConsumerCart cart) {
+        Integer result = 0;
+        //获取用户ID
+        QueryWrapper<Consumer> consumerWrapper = new QueryWrapper<Consumer>();
+        consumerWrapper.select("id").eq("user_name", cart.getUserId());
+        Consumer consumer = consumerDao.selectOne(consumerWrapper);
+        cart.setUserId(consumer.getId());
+        //获取商品类型
+        QueryWrapper<GoodsType> goodsTypeQueryWrapper = new QueryWrapper<GoodsType>();
+        goodsTypeQueryWrapper.select("name").eq("id", cart.getGoodType());
+        GoodsType goodsType = goodsTypeDao.selectOne(goodsTypeQueryWrapper);
+        cart.setGoodType(goodsType.getName());
+        //判断购物车是否有同样商品
+        QueryWrapper<ConsumerCart> cartQueryWrapper = new QueryWrapper<ConsumerCart>();
+        cartQueryWrapper.eq("good_id", cart.getGoodId());
+        Long row = consumerCartDao.selectCount(cartQueryWrapper);
+        if (row != 0) {
+            ConsumerCart consumerCart = consumerCartDao.selectOne(cartQueryWrapper);
+            consumerCart.setGoodNum(Integer.parseInt(consumerCart.getGoodNum()) +
+                    Integer.parseInt(cart.getGoodNum()) + "");
+            result = consumerCartDao.updateById(consumerCart);
+        } else {
+            result = consumerCartDao.insert(cart);
+        }
+        return new ResponseResult().ok(result);
+    }
+
+    @Override
+    public ResponseResult queryCartAll(String userName) {
+        return new ResponseResult().ok(consumerCartDao.queryAllCart(userName));
+    }
+
+    @Override
+    public ResponseResult CartDel(String id) {
+        return new ResponseResult().ok(consumerCartDao.deleteById(id));
+    }
 }
 

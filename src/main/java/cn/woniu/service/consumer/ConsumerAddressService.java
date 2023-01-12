@@ -1,6 +1,8 @@
 package cn.woniu.service.consumer;
 
 
+import cn.woniu.utils.ResponseResult;
+
 /**
  * (ConsumerAddress)表服务接口
  *
@@ -8,6 +10,6 @@ package cn.woniu.service.consumer;
  * @since 2023-01-05 11:38:49
  */
 public interface ConsumerAddressService {
-
+    ResponseResult<?> queryClientAddressByClientId(String id);
 }
 

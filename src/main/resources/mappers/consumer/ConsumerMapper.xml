@@ -17,7 +17,8 @@
         pic,
         description,
         sale_price,
-        stock
+        stock,
+        goods_type_id
         FROM
         goods
         <where>

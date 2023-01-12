@@ -22,7 +22,7 @@
             <result property="price" column="price"/>
             <result property="unit" column="unit"/>
             <result property="status" column="status"/>
-            <result property="goodsName" column="name"/>
+            <result property="goodsName" column="goods_name"/>
             <result property="goodsPrice" column="sale_price"/>
             <result property="unitName" column="unit_name"/>
         </collection>
@@ -39,6 +39,12 @@
             <result property="purStatus" column="pur_status"/>
         </collection>
     </resultMap>
+    <insert id="insertOrderItemList">
+        INSERT INTO order_item (order_id, goods_id, num, price, unit, status) VALUES
+        <foreach collection="orderItemList" item="orderItem" separator=",">
+            (#{orderItem.orderId}, #{orderItem.goodsId}, #{orderItem.num}, #{orderItem.price}, #{orderItem.unit}, 0)
+        </foreach>
+    </insert>
     <update id="updateOrderByOrderId">
         UPDATE order_client oc, order_item oi
         SET oc.status = 4, oc.update_time = now()
@@ -67,7 +73,7 @@
         SELECT
         oc.id,
         oc.no,
-        oc.client_id,
+        c.client_id,
         oc.order_time,
         oc.address,
         oc.total_money,
@@ -104,7 +110,7 @@
             AND oc.no like concat('%',#{oc.no},'%')
         </if>
         <if test="oc.clientName != null and oc.clientName != ''">
-            AND c.client_name like concat('%',#{oc.clientName},'%')
+            AND c.client_id = #{oc.clientName}
         </if>
         <if test="oc.status != null">
             AND oc.status = #{oc.status}
@@ -135,6 +141,37 @@
         <if test="selectTime != null and selectTime.size > 0">
             AND oc.pay_time BETWEEN #{selectTime[0]} AND #{selectTime[1]}
         </if>
+    </select>
+    <select id="selectUnitByName" resultType="cn.woniu.entity.manage.MeasuringUnit">
+        SELECT id, name, status, weight, del
+        FROM measuring_unit WHERE name = #{name}
+    </select>
+
+    <select id="queryAllByChart" resultType="cn.woniu.entity.order.OrderClient">
+        SELECT oc.id,oc.total_money,c.client_name
+        FROM `order_client` oc
+        left join client c
+        on oc.client_id=c.id
+        <where>
+         <if test="name != null and name != ''">
+             and c.client_name= #{name}
+         </if>
+            <foreach collection="inductionTime" item="item1" index="index">
+                <if test="index == 0 and inductionTime != null and inductionTime !=''">
+                    and oc.order_time &gt;= #{item1}
+                </if>
+                <if test="index == 1 and inductionTime != null and inductionTime !=''">
+                    and oc.order_time &lt;= #{item1}
+                </if>
+            </foreach>
+        </where>
+    </select>
+
+    <select id="queryAllOrderClientName" resultType="cn.woniu.entity.order.OrderClient">
+        SELECT oc.id,c.client_name,oc.total_money
+        FROM `order_client` oc
+        left join client c
+        on oc.client_id=c.id
     </select>
 
 </mapper>

@@ -1,11 +1,13 @@
 package cn.woniu.dao.order;
 
 
+import cn.woniu.entity.manage.MeasuringUnit;
 import cn.woniu.entity.order.OrderItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.woniu.entity.order.OrderClient;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,15 +25,6 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
      * @return
      */
     List<OrderClient> queryAll(@Param("oc") OrderClient orderClient);
-
-
-    /**
-     * 查询分页总条数
-     *
-     * @param orderClient
-     * @return
-     */
-    Integer pageCount(OrderClient orderClient);
 
     /**
      * 逻辑删除订单及关联的表
@@ -68,6 +61,7 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
 
     /**
      * 修改订单状态
+     *
      * @param id
      * @return
      */
@@ -75,9 +69,43 @@ public interface OrderClientDao extends BaseMapper<OrderClient> {
 
     /**
      * 修改商品采购状态
+     *
      * @param id
      * @return
      */
     Integer updateGoodsPurStatus(String id);
+
+    /**
+     * 查询分页总条数
+     *
+     * @param orderClient
+     * @return
+     */
+    Integer pageCount(OrderClient orderClient);
+
+    /**
+     * 批量添加订单项
+     *
+     * @return
+     */
+    Integer insertOrderItemList(List<OrderItem> orderItemList);
+
+    /**
+     * 通过名字查询计量单位
+     *
+     * @param name
+     * @return
+     */
+    MeasuringUnit selectUnitByName(String name);
+
+    /**
+     * 图表查询
+     */
+    List<OrderClient> queryAllByChart(String name, List<LocalDate> inductionTime);
+
+    /**
+     * 图表刷新
+     */
+    List<OrderClient> queryAllOrderClientName();
 
 }
