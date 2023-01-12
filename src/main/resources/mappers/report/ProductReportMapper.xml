@@ -14,5 +14,16 @@
         select pr.id,pr.pro_name,pr.pro_num,pr.unit_name
         from `product_report` pr
     </select>
-
+    <select id="queryReportAllInfoByIdAndName" resultType="cn.woniu.entity.report.ProductReport">
+        select ps.goods_id id,pr.pro_name,pr.pro_num,pr.unit_name,ps.limit
+        from `product_report` pr left join product_send ps on pr.pro_name=ps.goods_name
+        <where>
+            <if test="id != '' and id != null">
+                and pr.id like concat("%",#{id},"%")
+            </if>
+            <if test="goodsName !=null and goodsName != ''">
+                and pr.pro_name like concat("%",#{goodsName},"%")
+            </if>
+        </where>
+    </select>
 </mapper>

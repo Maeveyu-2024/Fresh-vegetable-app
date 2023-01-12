@@ -183,12 +183,9 @@ public class StandardProductsServiceImpl implements StandardProductsService {
     @Override
     public ResponseResult<?> query1(String id, String goodsName, Integer pageSize, Integer pageNum) {
         QueryWrapper<ProductReport> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("pro_name",goodsName);
-        queryWrapper.like("id",id);
         PageHelper.startPage(pageNum, pageSize);
-        PageInfo<ProductReport> pageInfo = new PageInfo<>(productReportDao.selectList(queryWrapper));
+        PageInfo<ProductReport> pageInfo = new PageInfo<>(productReportDao.queryReportAllInfoByIdAndName(id,goodsName));
         return new ResponseResult<>().ok(pageInfo);
-
 
     }
 

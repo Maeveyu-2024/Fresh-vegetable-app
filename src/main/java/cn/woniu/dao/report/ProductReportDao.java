@@ -16,5 +16,6 @@ import java.util.List;
 public interface ProductReportDao extends BaseMapper<ProductReport> {
         ProductReport queryReportByName(String name);//根据产品名查询对应图表的数据
         List<ProductReport> queryReportAllInfo();//查询全部信息
+        List<ProductReport> queryReportAllInfoByIdAndName(String id,String goodsName);
 
 }
