@@ -8,6 +8,14 @@
         left join supplier s on sp.supplier_id=s.id
         group by name
     </select>
-
+    <select id="queryDataForGoodsSales" resultType="cn.woniu.entity.report.PayReport">
+        SELECT  ps.goods_name as name
+        ,ps.num as value
+        FROM `product_send` ps
+    </select>
+    <select id="queryDataForGoodsInventory" resultType="cn.woniu.entity.report.PayReport">
+        select pr.pro_name as name,pr.pro_num as value
+        from `product_report` pr
+    </select>
 
 </mapper>

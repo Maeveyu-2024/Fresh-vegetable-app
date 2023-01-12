@@ -10,6 +10,13 @@
         <result property="deleted" column="deleted" jdbcType="VARCHAR"/>
         <result property="time" column="time" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <update id="updateLimitById">
+        update product_send ps set ps.limit = #{limit} where goods_id = #{id}
+    </update>
+    <update id="updateGoodsLimit">
+        update goods set stock_lower_limit=#{limit} where id = #{id}
+    </update>
     <update id="insertSales">
         update product_send set num=num+#{num} where goods_name=#{goodsName}
     </update>

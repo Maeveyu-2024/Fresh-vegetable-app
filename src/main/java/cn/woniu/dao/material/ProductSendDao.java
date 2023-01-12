@@ -11,6 +11,12 @@ import cn.woniu.entity.material.ProductSend;
  * @since 2023-01-05 11:39:00
  */
 public interface ProductSendDao extends BaseMapper<ProductSend> {
+
+
+    int updateLimitById(String id,Double limit);
+    int updateGoodsLimit(String id,Double limit);
+
     int insertSales(String goodsName,Double num);
     int minusNum(String goodsName,Double num);
+
 }

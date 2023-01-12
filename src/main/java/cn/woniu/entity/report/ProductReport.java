@@ -30,6 +30,8 @@ public class ProductReport {
     private Double proNum;
     //单位名称
     private String unitName;
+    @TableField(exist = false)
+    private String limit;
     //成品单价
     @TableField(exist = false)
     private Double price;

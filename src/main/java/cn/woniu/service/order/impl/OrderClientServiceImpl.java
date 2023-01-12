@@ -2,6 +2,7 @@ package cn.woniu.service.order.impl;
 
 import cn.woniu.dao.finance.FinanceQueryDao;
 import cn.woniu.dao.manage.MeasuringUnitDao;
+import cn.woniu.dao.material.ProductSendDao;
 import cn.woniu.dao.order.OrderClientDao;
 import cn.woniu.dao.order.OrderItemDao;
 import cn.woniu.dao.order.OrderSummaryDao;
@@ -45,7 +46,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Autowired(required = false)
     private FinanceQueryDao financeQueryDao;
     @Autowired(required = false)
-    private MeasuringUnitDao measuringUnitDao;
+    private ProductSendDao productSendDao;
 
     @Override
     public ResponseResult<?> queryOrder(OrderClient orderClient, Integer pageNum, Integer pageSize) {
@@ -87,10 +88,14 @@ public class OrderClientServiceImpl implements OrderClientService {
 
     @Override
     @Transactional
-    public ResponseResult<?> check(OrderSummary orderSummary) {
+    public ResponseResult<?> check(OrderSummary orderSummary, Integer purStatus, Double saleNum) {
         orderClientDao.updateOrderStatus(orderSummary.getOrderId());
-        orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
-        orderSummaryDao.insert(orderSummary);
+        productSendDao.minusNum(orderSummary.getGoodsName(), saleNum);
+        productSendDao.insertSales(orderSummary.getGoodsName(), saleNum);
+        if(orderSummary.getDemand() > 0 && purStatus == 0){
+            orderClientDao.updateGoodsPurStatus(orderSummary.getGoodsId());
+            orderSummaryDao.insert(orderSummary);
+        }
         return new ResponseResult<>().ok(null);
     }
 
