@@ -92,7 +92,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Override
     public ResponseResult<?> addOrder(OrderClient orderClient) {
         orderClientDao.insert(orderClient);
-        QueryWrapper<OrderClient> wrapper = new QueryWrapper<OrderClient>().eq("client_id", orderClient.getClientId());
+        QueryWrapper<OrderClient> wrapper = new QueryWrapper<OrderClient>().eq("no", orderClient.getNo());
         String id = orderClientDao.selectOne(wrapper).getId();
         List<OrderItem> itemList = orderClient.getOrderItemList();
         itemList.forEach(item -> {
