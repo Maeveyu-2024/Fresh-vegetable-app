@@ -14,5 +14,6 @@ import java.util.List;
 public interface PayReportDao {
 
     List<PayReport> queryDataForChart();//饼图数据查询
-
+    List<PayReport> queryDataForGoodsSales();//商品销量数据
+    List<PayReport> queryDataForGoodsInventory();//成品库存图表数据
 }
