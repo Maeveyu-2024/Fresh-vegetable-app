@@ -8,6 +8,9 @@ import cn.woniu.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * (OrderClient)表控制层
  *
@@ -52,5 +55,19 @@ public class OrderClientController {
     @PostMapping("/purchase")
     public ResponseResult<?> check(@RequestBody OrderSummary orderSummary) {
         return orderClientService.check(orderSummary);
+    }
+    /**
+     * 查询信息给图表
+     */
+    @RequestMapping("/queryList")
+    ResponseResult<?> queryAllByChart(String name,@RequestBody List<LocalDate> inductionTime){
+        return orderClientService.queryAllByChart(name,inductionTime);
+    }
+    /**
+     * 刷新图表
+     */
+    @RequestMapping("/queryAll")
+    ResponseResult<?> queryAllOrderClientName(){
+        return orderClientService.queryAllOrderClientName();
     }
 }

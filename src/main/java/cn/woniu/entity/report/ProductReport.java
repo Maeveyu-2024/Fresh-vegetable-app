@@ -1,6 +1,7 @@
 package cn.woniu.entity.report;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,9 @@ public class ProductReport {
     private Double proNum;
     //单位名称
     private String unitName;
+    //成品单价
+    @TableField(exist = false)
+    private Double price;
 
 
 }

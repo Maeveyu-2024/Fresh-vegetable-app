@@ -16,19 +16,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubproReport {
-    //主键
-    private String id;
-    //次品入库或次品出库id
-    private String recordId;
-    //类型(次品出库/次品入库)
-    private String type;
-    //次品名称
-    private String subName;
-    //次品数量
-    private Object subNum;
-    //单位名称
-    private String unitName;
+public class PayReport {
+    //应付账款值
+    private Float value;
+    //应付账款名
+    private String name;
 
 
 }

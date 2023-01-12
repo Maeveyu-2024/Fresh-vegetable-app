@@ -10,22 +10,24 @@
     </resultMap>
     <select id="queryAllGoodsInMall" resultType="cn.woniu.entity.manage.Goods">
         SELECT
-        id,
-        NAME,
-        goods_type_id,
-        unit_weight,
-        pic,
-        description,
-        sale_price,
-        stock
+        g.id,
+        g.NAME,
+        g.goods_type_id,
+        g.unit_weight,
+        g.pic,
+        g.description,
+        g.sale_price,
+        g.stock,
+        m.NAME AS unit_name
         FROM
-        goods
+        goods g
+        LEFT JOIN measuring_unit m ON g.unit_id = m.id
         <where>
             <if test="name!=null and name !=''">
-                NAME like concat("%",#{name},"%")
+                g.NAME like concat("%",#{name},"%")
             </if>
             <if test="typeId!=null and typeId !=''">
-                and goods_type_id = #{typeId}
+                and g.goods_type_id = #{typeId}
             </if>
         </where>
     </select>
