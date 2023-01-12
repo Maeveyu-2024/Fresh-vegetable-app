@@ -2,11 +2,10 @@ package cn.woniu.entity.consumer;
 
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 /**
  * (ConsumerCart)表实体类
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class ConsumerCart {
 
     private String id;
-
+    @Id
     private String userId;
 
     private String goodId;

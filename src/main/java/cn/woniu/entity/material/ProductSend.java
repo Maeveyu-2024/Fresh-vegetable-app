@@ -21,16 +21,15 @@ import java.time.LocalDate;
 public class ProductSend {
     //主键
     private String id;
-    //出库单编号
-    private String no;
+    //商品id
+    private String goodsId;
     //订单 id
-    private String orderId;
+    private String goodsName;
     //状态
-    private Integer status;
+    private Double num;
     //是否删除字段
-    private String deleted;
-    //时间
-    private LocalDate time;
+    private Double limit;
+
 
 
 }

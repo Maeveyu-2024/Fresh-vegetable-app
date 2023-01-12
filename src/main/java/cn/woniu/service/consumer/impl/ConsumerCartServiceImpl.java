@@ -6,6 +6,7 @@ import cn.woniu.dao.manage.GoodsTypeDao;
 import cn.woniu.entity.consumer.Consumer;
 import cn.woniu.entity.consumer.ConsumerCart;
 import cn.woniu.entity.manage.GoodsType;
+import cn.woniu.redis.CartRedisRepository;
 import cn.woniu.service.consumer.ConsumerCartService;
 import cn.woniu.utils.ResponseResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
