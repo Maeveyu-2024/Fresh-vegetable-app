@@ -58,8 +58,8 @@
     </update>
     <update id="updateOrderItem">
         <foreach collection="orderItemList" item="orderItem" separator=";">
-            UPDATE order_item SET num = #{orderItem.num}, price = #{orderItem.price} WHERE goods_id =
-            #{orderItem.goodsId}
+            UPDATE order_item SET num = #{orderItem.num}, price = #{orderItem.price}
+            WHERE goods_id = #{orderItem.goodsId} AND order_id = #{id}
         </foreach>
     </update>
     <update id="updateOrderStatus">
@@ -128,12 +128,13 @@
         LEFT JOIN goods g ON oi.goods_id = g.id
         LEFT JOIN client c ON oc.client_id = c.id
         LEFT JOIN measuring_unit mu ON oi.unit = mu.id
+        LEFT JOIN product_report pr ON pr.pro_name = g.name
         WHERE oc.status IN (0,1,2,3)
         <if test="no != null and no != ''">
             AND oc.no like concat('%',#{no},'%')
         </if>
         <if test="clientName != null and clientName != ''">
-            AND c.client_name like concat('%',#{clientName},'%')
+            AND c.client_id = #{clientName}
         </if>
         <if test="status != null">
             AND oc.status = #{status}
@@ -148,7 +149,7 @@
     </select>
 
     <select id="queryAllByChart" resultType="cn.woniu.entity.order.OrderClient">
-        SELECT oc.id,oc.total_money,c.client_name
+        SELECT c.client_name,sum(oc.total_money) as total_money
         FROM `order_client` oc
         left join client c
         on oc.client_id=c.id
@@ -165,13 +166,15 @@
                 </if>
             </foreach>
         </where>
+        group by c.client_name
     </select>
 
     <select id="queryAllOrderClientName" resultType="cn.woniu.entity.order.OrderClient">
-        SELECT oc.id,c.client_name,oc.total_money
+        SELECT c.client_name,sum(oc.total_money) as total_money
         FROM `order_client` oc
         left join client c
         on oc.client_id=c.id
+	    group by c.client_name
     </select>
 
 </mapper>
