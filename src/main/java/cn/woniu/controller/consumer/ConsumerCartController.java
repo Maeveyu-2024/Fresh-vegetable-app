@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * (ConsumerCart)表控制层
  *
@@ -38,5 +41,11 @@ public class ConsumerCartController {
     @RequestMapping("/del")
     public ResponseResult CartDel(String id) {
         return consumerCartService.CartDel(id);
+    }
+
+    @PostMapping("/delInBatchs")
+    public ResponseResult CartDelInBatchs(@RequestBody String[] ids) {
+        List<String> list = Arrays.asList(ids);
+        return consumerCartService.GoodsDelInBatchs(list);
     }
 }

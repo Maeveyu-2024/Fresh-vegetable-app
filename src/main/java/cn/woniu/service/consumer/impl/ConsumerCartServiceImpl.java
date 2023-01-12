@@ -69,5 +69,15 @@ public class ConsumerCartServiceImpl implements ConsumerCartService {
     public ResponseResult CartDel(String id) {
         return new ResponseResult().ok(consumerCartDao.deleteById(id));
     }
+
+    @Override
+    public ResponseResult GoodsDelInBatchs(List<String> ids) {
+        int row = consumerCartDao.deleteBatchIds(ids);
+        if (row != 0) {
+            return new ResponseResult().ok(row);
+        } else {
+            return new ResponseResult(500, "失败", 0);
+        }
+    }
 }
 
