@@ -97,7 +97,8 @@ public class OrderClientServiceImpl implements OrderClientService {
         List<OrderItem> itemList = orderClient.getOrderItemList();
         itemList.forEach(item -> {
             item.setOrderId(id);
-            item.setUnit(orderClientDao.selectUnitByName(item.getUnitName()).getId());
+            MeasuringUnit measuringUnit = orderClientDao.selectUnitByName(item.getUnitName());
+            item.setUnit(measuringUnit.getId());
         });
         orderClientDao.insertOrderItemList(itemList);
         return new ResponseResult<>().ok(null);
