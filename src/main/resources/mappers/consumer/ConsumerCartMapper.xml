@@ -13,6 +13,7 @@
     <select id="queryAllCart" resultType="cn.woniu.entity.consumer.ConsumerCart">
         SELECT
         c.id,
+        c.user_id,
 	    c.good_id,
 	    g.NAME,
 	    g.pic,

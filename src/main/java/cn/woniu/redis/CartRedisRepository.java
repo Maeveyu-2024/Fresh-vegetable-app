@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CartRedisRepository extends CrudRepository<ConsumerCart, String> {
 
-    Iterable<ConsumerCart> findByAccount(String account);
+    Iterable<ConsumerCart> findByUserId(String userId);
 
 }
