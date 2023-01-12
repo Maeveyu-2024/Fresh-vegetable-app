@@ -148,7 +148,7 @@
     </select>
 
     <select id="queryAllByChart" resultType="cn.woniu.entity.order.OrderClient">
-        SELECT oc.id,oc.total_money,c.client_name
+        SELECT c.client_name,sum(oc.total_money) as total_money
         FROM `order_client` oc
         left join client c
         on oc.client_id=c.id
@@ -165,13 +165,15 @@
                 </if>
             </foreach>
         </where>
+        group by c.client_name
     </select>
 
     <select id="queryAllOrderClientName" resultType="cn.woniu.entity.order.OrderClient">
-        SELECT oc.id,c.client_name,oc.total_money
+        SELECT c.client_name,sum(oc.total_money) as total_money
         FROM `order_client` oc
         left join client c
         on oc.client_id=c.id
+	    group by c.client_name
     </select>
 
 </mapper>
