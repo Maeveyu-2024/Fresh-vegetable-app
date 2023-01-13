@@ -31,7 +31,7 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
         PageHelper.startPage(pageNo,pageSize);
         List<MeasuringUnit> measuringUnits = measuringUnitDao.queryMeasuringUnitList(name);
         PageInfo<MeasuringUnit> measuringInfo = new PageInfo<>(measuringUnits);
-        return new ResponseResult<>(200,"查询计量单位表",measuringInfo);
+        return new ResponseResult<>(200,"查询计量单位",measuringInfo);
     }
 
     @Override
@@ -40,10 +40,10 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
         List<MeasuringUnit> collect = measuringUnits.stream().filter(m -> m.getName().equals(measuringUnit.getName()))
                 .collect(Collectors.toList());
         if (collect.size()>0){
-            return new ResponseResult<>(200,"该计量单位表已存在");
+            return new ResponseResult<>(201,"该计量单位已存在");
         }else{
             measuringUnitDao.addMeasuringUnit(measuringUnit);
-            return new ResponseResult<>(200,"添加计量单位表");
+            return new ResponseResult<>(200,"添加计量单位");
         }
     }
 
