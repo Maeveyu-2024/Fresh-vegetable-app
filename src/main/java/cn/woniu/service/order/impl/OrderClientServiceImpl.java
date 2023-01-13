@@ -62,7 +62,7 @@ public class OrderClientServiceImpl implements OrderClientService {
     @Override
     public ResponseResult<?> deleteOrderByOrderId(String id) {
         OrderClient orderClient = orderClientDao.selectById(id);
-        if (orderClient.getStatus() == 3) {
+        if (orderClient.getStatus() == 5) {
             Integer count = orderClientDao.updateOrderByOrderId(id);
             return new ResponseResult<>().ok(count);
         }
