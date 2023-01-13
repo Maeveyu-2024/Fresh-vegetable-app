@@ -45,7 +45,7 @@ public class AreaServiceImpl implements AreaService {
         List<Area> collect = areas.stream().filter(a -> a.getName().equals(area.getName()))
                 .collect(Collectors.toList());
         if (collect.size()>0){
-            return new ResponseResult<>(200,"该区域已添加");
+            return new ResponseResult<>(201,"该区域已添加");
         }else{
             String areaValue = StringUtils.join(area.getAreaValues(), ' ');
             area.setAreaValue(areaValue);
