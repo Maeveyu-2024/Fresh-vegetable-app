@@ -121,8 +121,9 @@
             AND oc.status = #{oc.status}
         </if>
         <if test="oc.selectTime != null and oc.selectTime.size > 0">
-            AND oc.pay_time BETWEEN #{oc.selectTime[0]} AND #{oc.selectTime[1]}
+            AND oc.order_time BETWEEN #{oc.selectTime[0]} AND #{oc.selectTime[1]}
         </if>
+        ORDER BY oc.order_time DESC
     </select>
     <select id="pageCount" resultType="java.lang.Integer">
         SELECT
@@ -145,7 +146,7 @@
             AND oc.status = #{status}
         </if>
         <if test="selectTime != null and selectTime.size > 0">
-            AND oc.pay_time BETWEEN #{selectTime[0]} AND #{selectTime[1]}
+            AND oc.order_time BETWEEN #{selectTime[0]} AND #{selectTime[1]}
         </if>
     </select>
     <select id="selectUnitByName" resultType="cn.woniu.entity.manage.MeasuringUnit">
