@@ -29,6 +29,5 @@ public class SecurityLoginServiceImpl implements UserDetailsService {
         }else {
             throw new UsernameNotFoundException("该账号不存在");
         }
-
     }
 }
