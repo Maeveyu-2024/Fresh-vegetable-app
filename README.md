@@ -126,14 +126,7 @@ Contributions are welcome! If you want to contribute:
 
 Please make sure to update tests as appropriate and follow the code style guidelines.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Contact
 
-For any inquiries or support, please reach out via [email@example.com](mailto:email@example.com).
+For any inquiries or support, please reach out via meaveyu@gmail.com.
 
----
-
-This README now includes additional details such as user authentication, an API endpoint overview, a contact section, and a more robust feature list.
