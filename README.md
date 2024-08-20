@@ -1,4 +1,4 @@
-# fresh-vegetable-app
+# Fresh-vegetable-app
 
 This project is a full-stack web application designed to manage and display information about fresh vegetables. The app offers a comprehensive solution for cataloging, tracking, and interacting with produce data through an intuitive user interface, robust backend, and seamless database integration.
 
